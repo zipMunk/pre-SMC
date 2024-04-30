@@ -22,7 +22,7 @@ public class ApiService {
         try {
             Generation gen = new Generation();
             MessageManager msgManager = new MessageManager(10);
-            Message systemMsg = Message.builder().role(Role.SYSTEM.getValue()).content("你是薛伟同学开发的智能医生，你只回答与医疗相关的问题，不要回答其他问题！").build();
+            Message systemMsg = Message.builder().role(Role.SYSTEM.getValue()).content("你是智能医生，你只回答与医疗相关的问题，不要回答其他问题！").build();
             Message userMsg = Message.builder().role(Role.USER.getValue()).content(queryMessage).build();
             msgManager.add(systemMsg);
             msgManager.add(userMsg);
@@ -32,7 +32,7 @@ public class ApiService {
             Message message = output.getChoices().get(0).getMessage();
             return message.getContent();
         } catch (Exception e) {
-            return "智能医生现在不在线，请稍后再试～";
+            return "智能医生现在不在线，请稍后再试。";
         }
     }
 }
