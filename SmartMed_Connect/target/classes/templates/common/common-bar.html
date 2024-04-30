@@ -7,50 +7,39 @@
 <body>
 
 <header id="header" class="main_header_area">
-    <div class="topbar-wrap bg-dblue">
-        <div class="container">
-            <div class="top-info d-flex justify-content-between align-items-center">
-                <ul class="t-address">
-                    <li class="pr-2"><i class="far fa-clock"></i>丹心擘划宏图展，医界绽奇葩。【欢迎来到智慧医药系统】</li>
-                </ul>
-
-                <ul class="t-social">
-                    <li>
-                        <span class="ct-search-link"><a href="#"><i class="fa fa-search"></i> 搜索一下</a></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <div class="header_menu">
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-flex d-flex align-items-center justify-content-between w-100">
 
                     <div class="navbar-header">
-                        <a class="navbar-brand text-center" href="index.html">
-                            <img src="assets/images/logo.png" alt="image"/>
-                        </a>
+                        <div>
+                            <div style="margin-left: 75px">
+                                <a class="navbar-brand text-center" href="index.html">
+                                    <img src="assets/images/logo.png" alt="image"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div style="margin-left: 2px;color:#06A390;font-weight: bold">
+                            阳煦山立智慧医疗系统开发团队
+                        </div>
                     </div>
-
                     <div class="navbar-collapse1" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav" id="responsive-menu">
-                            <li><a href="findIllness">疾病百科</a></li>
-                            <li><a href="findMedicines">查找药品</a></li>
-                            <li><a href="doctor">智能医生</a></li>
+                            <li><a href="findIllness" style="margin-left: 70px">疾病百科</a></li>
+                            <li><a href="findMedicines" style="margin-left: 40px">查找药品</a></li>
+                            <li><a href="doctor" style="margin-left: 40px">智能医生</a></li>
                         </ul>
                     </div>
-                    <div th:if="${session.loginUser == null}" class="header-btn">
-                        <input id="loginAccount" type="text" placeholder="登录账户">
+                    <div th:if="${session.loginUser == null}" class="header-btn" style="width: 170px;">
+                        <input id="loginAccount" type="text" placeholder="账号">
                     </div>
-                    <div th:if="${session.loginUser == null}" class="header-btn">
+                    <div th:if="${session.loginUser == null}" class="header-btn" style="width: 170px">
                         <input id="loginPassword" type="password" placeholder="密码">
                     </div>
                     <div th:if="${session.loginUser == null}" class="header-btn">
                         <button class="btn btn-na" onclick="login()">登录</button>
                     </div>
-
                     <div th:if="${session.loginUser != null}" class="register-login">
                         <div class="dropdown">
                             <button class="btn-dash dropdown-toggle" type="button" id="dropdownMenuButton11"
@@ -65,32 +54,12 @@
                     </div>
                 </div>
             </div>
-
         </nav>
     </div>
 
 </header>
 
-<section id="back" class="call-to p-5 bg-green">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-4 col-md-12">
-                <div class="call-contact d-flex align-items-center">
-                    <i class="fas fa-phone-alt display-6 cl-white"></i>
-                    <div class="pl-3">
-                        <h4 class="cl-white">有问题？要反馈？</h4>
-                        <p class="m-0 cl-white">(+86) 8888 8888 8888</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <p class="call-to-mid cl-white">联系我们并且提交反馈，我们会悉心听取您的意见！</p>
-            </div>
-            <div class="col-lg-4 col-md-12 text-center">
-                <a href="feedback.html" class="btn btn-white">提交反馈</a>
-            </div>
-        </div>
-    </div>
+<section id="back" class="call-to p-0 bg-ftblue">
 </section>
 
 <footer id="footer" class="footer bg-ftblue">
@@ -101,19 +70,9 @@
                     <div class="ft-lists">
                         <h3 class="cl-white">友情链接</h3>
                         <ul class="d-flex flex-column">
-                            <li><a href="http://www.pptsd.com/">医疗百科网</a></li>
-                            <li><a href="http://www.chls.net/">医学教育网</a></li>
-                            <li><a href="http://www.pharmnet.com.cn/">中国医药网</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="ft-lists">
-                        <h3 class="cl-white">联系我们</h3>
-                        <ul class="d-flex flex-column">
-                            <li><a href="#">地址：XXX XXX</a></li>
-                            <li><a href="#">官网：www.xxx.com</a></li>
-                            <li><a href="#">电话：8888 6666</a></li>
+                            <li><a href="http://www.pptsd.com/" style="color:#06A390">医疗百科网</a></li>
+                            <li><a href="http://www.chls.net/" style="color:#06A390">医学教育网</a></li>
+                            <li><a href="http://www.pharmnet.com.cn/" style="color:#06A390">中国医药网</a></li>
                         </ul>
                     </div>
                 </div>
@@ -121,10 +80,20 @@
                     <div class="ft-lists">
                         <h3 class="cl-white">便捷通道</h3>
                         <ul class="d-flex flex-column">
-                            <li><a href="findIllness">查看疾病百科</a></li>
-                            <li><a href="findMedicines">我要查找药品</a></li>
-                            <li><a href="doctor">智能医生</a></li>
+                            <li><a href="findIllness" style="color:#06A390">查看疾病百科</a></li>
+                            <li><a href="findMedicines" style="color:#06A390">我要查找药品</a></li>
+                            <li><a href="doctor" style="color:#06A390">智能医生</a></li>
                         </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="ft-lists">
+                        <h3 class="cl-white">意见反馈</h3>
+                        <p class="cl-white">联系我们并且提交反馈，我们会悉心听取您的意见！</p>
+                        <p class="cl-white">(+86) 8888 8888 8888</p>
+                        <div style="margin-top: 12px">
+                            <a href="feedback.html" style="color:#06A390" >提交反馈</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-3">
@@ -135,13 +104,6 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="copyright-main p-3 bg-footer-blue">
-        <div class="container">
-            <div class="copyright-text d-flex justify-content-between">
-                <p class="cl-white m-0">© 2022 智慧医药系统.</p>
             </div>
         </div>
     </div>

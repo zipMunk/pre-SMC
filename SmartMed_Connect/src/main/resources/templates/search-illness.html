@@ -30,6 +30,36 @@
 
 <div th:replace="common/common-bar::#header"></div>
 
+<section class="search-list-sh p-0">
+    <div class="container">
+        <div class="search-again bg-white text-center ">
+            <div style="margin-top: 85px;margin-bottom: -25px">
+                <h4>搜索一下</h4>
+            </div>
+            <div class="w-lg-75 m-auto">
+                <div class="side-search position-relative overflow-hidden rounded-1 w-lg-10 m-auto mt-4">
+                    <input type="text" class="form-control" id="search" placeholder="搜索..."/>
+                    <a th:if="${kind eq null}" class="search-btn sh-hover bg-lgreen" th:onclick="searchGroupByName()"><i class="fa fa-search"></i></a>
+                    <a th:if="${kind ne null}" class="search-btn sh-hover bg-lgreen" th:onclick="searchGroup([[${kind}]])"><i class="fa fa-search"></i></a>
+                </div>
+                <div style="margin-top: 10px">
+                    <span>分类：</span>
+                    <a th:each="kind:${kindList}" th:href="@{findIllness(kind=${kind.id})}"><span th:text="${kind.name}"></span>&nbsp;&nbsp;&nbsp;</a>
+                </div>
+                <div th:if="${history ne null}" style="margin-top: 10px">
+                    <span>搜索历史：</span>
+                    <a th:each="his:${history}" th:href="${his.operateType eq 3}?@{findMedicines(nameValue=${his.searchValue})}:@{findIllness(kind=${his.kind eq '无'}?null:${his.kind},illnessName=${his.nameValue eq '无'}?null:${his.nameValue})}"><span th:text="${his.operateType eq 3}?(${his.searchValue} + '(药)'):${his.searchValue}"></span>&nbsp;&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--<div class="breadcrumb-wrap mt-0">-->
+<!--    <div class="container"></div>-->
+<!--    <div class="overlay"></div>-->
+<!--</div>-->
 
 <section class="search-list bg-sfgrey-3">
     <div class="container">
@@ -57,46 +87,10 @@
             <h4>没有搜索到相应的结果，可联系管理员加入</h4>
         </div>
         <div style="text-align: center" th:if="${illness.size()>0}">
-<!--            <a th:if="${page eq 1}" style="pointer-events:none;margin-right: 5px"><span>上一页</span></a>-->
+            <!--            <a th:if="${page eq 1}" style="pointer-events:none;margin-right: 5px"><span>上一页</span></a>-->
             <a th:href="@{findIllness(page=${page - 1})}" th:if="${page gt 1}" style="right: 5px"><span>上一页</span></a>
-<!--            <a th:if="${page eq size}" style="pointer-events:none;margin-left: 5px"><span>下一页</span></a>-->
+            <!--            <a th:if="${page eq size}" style="pointer-events:none;margin-left: 5px"><span>下一页</span></a>-->
             <a th:href="@{findIllness(page=${page+1})}" th:if="${page ge 1 && page lt size}" style="margin-left: 5px"><span>下一页</span></a>
-        </div>
-    </div>
-</section>
-
-
-<div class="breadcrumb-wrap mt-0">
-    <div class="container"></div>
-    <div class="overlay"></div>
-</div>
-<section class="search-list-sh p-0">
-    <div class="container">
-        <div class="search-again bg-white text-center mt-n3">
-            <div class="sc-title-two text-center mb-6">
-                <h4 class="cl-green">没有找到你想要的结果吗？</h4>
-                <h2>搜索一下</h2>
-            </div>
-            <div class="w-lg-75 m-auto">
-                <p>
-                    智慧医药您提供疾病查询,常见疾病大全,帮您全面了解疾病病因症状、检查治疗、饮食护理等信息,是您疾病查询的好帮手。
-                </p>
-                <div class="side-search position-relative overflow-hidden rounded-1 w-lg-50 m-auto mt-4">
-                    <input type="text" class="form-control" id="search" placeholder="搜索..."/>
-                    <a th:if="${kind eq null}" class="search-btn sh-hover bg-lgreen" th:onclick="searchGroupByName()"><i class="fa fa-search"></i></a>
-                    <a th:if="${kind ne null}" class="search-btn sh-hover bg-lgreen" th:onclick="searchGroup([[${kind}]])"><i class="fa fa-search"></i></a>
-                </div>
-                <div style="margin-top: 20px">
-                    <span>分类：</span>
-                    <a th:each="kind:${kindList}" th:href="@{findIllness(kind=${kind.id})}"><span th:text="${kind.name}"></span>&nbsp;&nbsp;&nbsp;</a>
-                </div>
-                <div th:if="${history ne null}" style="margin-top: 10px">
-                    <span>搜索历史：</span>
-<!--                    <a th:each="his:${history}" th:href="@{findIllness(kind=${his.kind eq '无'}?null:${his.kind},illnessName=${his.nameValue eq '无'}?null:${his.nameValue})}"><span th:text="${his.searchValue}"></span>&nbsp;&nbsp;&nbsp;</a>-->
-                    <a th:each="his:${history}" th:href="${his.operateType eq 3}?@{findMedicines(nameValue=${his.searchValue})}:@{findIllness(kind=${his.kind eq '无'}?null:${his.kind},illnessName=${his.nameValue eq '无'}?null:${his.nameValue})}"><span th:text="${his.operateType eq 3}?(${his.searchValue} + '(药)'):${his.searchValue}"></span>&nbsp;&nbsp;&nbsp;</a>
-
-                </div>
-            </div>
         </div>
     </div>
 </section>
