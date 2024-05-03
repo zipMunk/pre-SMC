@@ -9,6 +9,8 @@
 1.修改了部分前端页面主要在feedback.html、illness.html、illness-reviews.html、index.html、medicine.html、search-illness.html、common-bar.html    
 2.更改了部分前端图片  
 
-2024.5.3. by mpz
+2024.5.3 by mpz
 
 1.增添了一些数据。
+
+2.更改了部分前端的颜色，使其更加难以辨别。等待进一步修改。

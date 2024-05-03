@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Ayurvedic - Medical Template</title>
+    <title>SmartMed_Connect</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/cropped-favicon-32x32.png"/>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -39,8 +39,8 @@
             <div class="w-lg-75 m-auto">
                 <div class="side-search position-relative overflow-hidden rounded-1 w-lg-10 m-auto mt-4">
                     <input type="text" class="form-control" id="search" placeholder="搜索..."/>
-                    <a th:if="${kind eq null}" class="search-btn sh-hover bg-lgreen" th:onclick="searchGroupByName()"><i class="fa fa-search"></i></a>
-                    <a th:if="${kind ne null}" class="search-btn sh-hover bg-lgreen" th:onclick="searchGroup([[${kind}]])"><i class="fa fa-search"></i></a>
+                    <a th:if="${kind eq null}" class="search-btn sh-hover bg-blue" th:onclick="searchGroupByName()"><i class="fa fa-search"></i></a>
+                    <a th:if="${kind ne null}" class="search-btn sh-hover bg-blue" th:onclick="searchGroup([[${kind}]])"><i class="fa fa-search"></i></a>
                 </div>
                 <div style="margin-top: 10px">
                     <span>分类：</span>
