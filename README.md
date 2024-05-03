@@ -5,7 +5,10 @@
 2.发现上传药品图片时，会自动上传到yml中设置的oss中。  
 3.更改了banner.txt文件  
 
-
 2024.5.1 by zmy  
 1.修改了部分前端页面主要在feedback.html、illness.html、illness-reviews.html、index.html、medicine.html、search-illness.html、common-bar.html    
 2.更改了部分前端图片  
+
+2024.5.3. by mpz
+
+1.增添了一些数据。
