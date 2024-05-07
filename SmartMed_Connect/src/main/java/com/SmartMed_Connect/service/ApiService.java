@@ -454,6 +454,7 @@ public class ApiService {
         return Message.builder().role(role.getValue()).content(content).build();
     }
 
+
     //通过调用大模型来判断用户是否正在咨询自身病情。
     public  static boolean isMedicalQuery(String queryMessage) throws NoApiKeyException, InputRequiredException {
         Generation gen = new Generation();
