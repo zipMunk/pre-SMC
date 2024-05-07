@@ -2,7 +2,7 @@ spring:
   # 数据源配置
   datasource:
     username: root
-    password: 123456
+    password: KYHq2257
     url: jdbc:mysql://127.0.0.1:3306/smart-medicine?serverTimezone=Hongkong&useAffectedRows=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -11,8 +11,8 @@ spring:
     time-zone: GMT+8
   # 邮件配置
   mail:
-    username: 494307269@qq.com
-    password: smtgfqimwfpncadb
+    username: 3554417685@qq.com
+    password: vospaheitimpdbdb
     host: smtp.qq.com
     port: 465
     properties:
