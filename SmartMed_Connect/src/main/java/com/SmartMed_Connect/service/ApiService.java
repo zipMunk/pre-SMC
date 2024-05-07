@@ -146,31 +146,51 @@ public class ApiService {
     }
 
     private String getNextQueryMessage() {
-        switch (queryStep) {
-            case 0:
-                return "可以详细描述一下你的所有症状吗？";
-            case 1:
-                return "症状持续多长时间了？";
-            case 2:
-                return "有没有过往病史？";
-            default:
-                return null;
-        }
+            switch (queryStep) {
+                case 0:
+                    return "请提供您的个人基本信息，包括年龄、性别、身高和体重。";
+                case 1:
+                    return "您目前有哪些症状？请详细描述。";
+                case 2:
+                    return "请描述病情发作的相关细节，如发作时间、持续时间和发作频率。";
+                case 3:
+                    return "您的生活方式因素如何？包括饮食、运动、睡眠等方面。";
+                case 4:
+                    return "请描述您的病史，包括曾经患过的疾病、手术史等。";
+                case 5:
+                    return "您是否对某些药物过敏？如果有，请提供过敏药物的信息。";
+                case 6:
+                    return "您目前正在使用哪些药物？请提供正在使用的药物清单。";
+                default:
+                    return null;
+            }
     }
 
     private void savePatientInfo(String queryMessage) {
         switch (queryStep) {
             case 0:
-                patientInfo.setFirstQuery(queryMessage);
+                patientInfo.setFirstQuery(queryMessage);// 第一次询问信息
                 break;
             case 1:
-                patientInfo.setSymptoms(queryMessage);
+                patientInfo.setPersonalInfo(queryMessage);// 个人基本信息，如年龄、性别、身高、体重
                 break;
             case 2:
-                patientInfo.setDuration(queryMessage);
+                patientInfo.setSymptoms(queryMessage);// 症状
                 break;
             case 3:
-                patientInfo.setMedicalHistory(queryMessage);
+                patientInfo.setEpisodeDetails(queryMessage);// 病情发作相关细节，如发作时间，持续时间，发作频率
+                break;
+            case 4:
+                patientInfo.setLifestyleFactors(queryMessage);// 生活方式因素，包括饮食、运动、睡眠等
+                break;
+            case 5:
+                patientInfo.setMedicalHistory(queryMessage);// 病史
+                break;
+            case 6:
+                patientInfo.setAllergicDrugs(queryMessage);// 过敏药物
+                break;
+            case 7:
+                patientInfo.setUsingDrugs(queryMessage);// 正在使用的药物
                 break;
         }
         queryStep++;
@@ -194,36 +214,64 @@ public class ApiService {
         return Message.builder().role(role.getValue()).content(content).build();
     }
 
+    private boolean isMedicalQuery(String queryMessage) {
+        return false;
+    }
+
     private static class PatientInfo {
-        private String firstQuery;
-        private String symptoms;
-        private String duration;
-        private String medicalHistory;
+        private String firstQuery;//第一次询问信息
+        private String personalInfo;//个人基本信息，如年龄、性别、身高、体重
+        private String symptoms;//症状
+        private String episodeDetails;//病情发作相关细节，如发作时间，持续时间，发作频率
+        private String lifestyleFactors;//表示生活方式因素，包括饮食、运动、睡眠等
+        private String medicalHistory;//病史
+        private String allergicDrugs;//过敏药物
+        private String usingDrugs;//正在使用的药物
 
         @Override
         public String toString() {
-            return "PatientInfo{" +
-                    "firstQuery='" + firstQuery + '\'' +
-                    ", symptoms='" + symptoms + '\'' +
-                    ", duration='" + duration + '\'' +
-                    ", medicalHistory='" + medicalHistory + '\'' +
+            return "病人信息{" +
+                    "病人第一次询问为：'" + firstQuery + '\'' +//第一次询问信息
+                    ", 一般信息：'" + personalInfo + '\'' +//个人基本信息，如年龄、性别、身高、体重
+                    ", 症状：'" + symptoms + '\'' +//症状
+                    ", 发作细节：'" + episodeDetails + '\'' +//病情发作相关细节，如发作时间，持续时间，发作频率
+                    ", 生活方式：'" + lifestyleFactors + '\'' +//表示生活方式因素，包括饮食、运动、睡眠等
+                    ", 病史：'" + medicalHistory + '\'' +//病史
+                    ", 过敏药物：'" + allergicDrugs + '\'' +//过敏药物
+                    ", 正在使用的药物：'" + usingDrugs + '\'' +//正在使用的药物
                     '}';
         }
 
-        public void setFirstQuery(String firstQuery) {
-            this.firstQuery = firstQuery;
+        public void setLifestyleFactors(String lifestyleFactors) {
+            this.lifestyleFactors = lifestyleFactors;
+        }
+
+        public void setUsingDrugs(String usingDrugs) {
+            this.usingDrugs = usingDrugs;
+        }
+
+        public void setAllergicDrugs(String allergicDrugs) {
+            this.allergicDrugs = allergicDrugs;
+        }
+
+        public void setMedicalHistory(String medicalHistory) {
+            this.medicalHistory = medicalHistory;
+        }
+
+        public void setEpisodeDetails(String episodeDetails) {
+            this.episodeDetails = episodeDetails;
         }
 
         public void setSymptoms(String symptoms) {
             this.symptoms = symptoms;
         }
 
-        public void setDuration(String duration) {
-            this.duration = duration;
+        public void setPersonalInfo(String personalInfo) {
+            this.personalInfo = personalInfo;
         }
 
-        public void setMedicalHistory(String medicalHistory) {
-            this.medicalHistory = medicalHistory;
+        public void setFirstQuery(String firstQuery) {
+            this.firstQuery = firstQuery;
         }
     }
 }
