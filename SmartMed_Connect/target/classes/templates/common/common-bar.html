@@ -27,7 +27,7 @@
                     <div class="navbar-collapse1" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav" id="responsive-menu">
                             <li><a href="findIllness" style="margin-left: 70px">疾病百科</a></li>
-                            <li><a href="findMedicines" style="margin-left: 40px">查找药品</a></li>
+                            <li><a href="findMedicines" style="margin-left: 40px">药品百科</a></li>
                             <li><a href="doctor" style="margin-left: 40px">智能医生</a></li>
                         </ul>
                     </div>
@@ -70,9 +70,12 @@
                     <div class="ft-lists">
                         <h3 class="cl-white">友情链接</h3>
                         <ul class="d-flex flex-column">
-                            <li><a href="http://www.pptsd.com/" style="color:#ffffff;text-decoration: underline;">医疗百科网</a></li>
-                            <li><a href="http://www.chls.net/" style="color:#ffffff;text-decoration: underline;">医学教育网</a></li>
-                            <li><a href="http://www.pharmnet.com.cn/" style="color:#ffffff;text-decoration: underline;">中国医药网</a></li>
+                            <li><a href="http://www.pptsd.com/"
+                                   style="color:#ffffff;text-decoration: underline;">医疗百科网</a></li>
+                            <li><a href="http://www.chls.net/"
+                                   style="color:#ffffff;text-decoration: underline;">医学教育网</a></li>
+                            <li><a href="http://www.pharmnet.com.cn/" style="color:#ffffff;text-decoration: underline;">中国医药网</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -80,8 +83,10 @@
                     <div class="ft-lists">
                         <h3 class="cl-white">便捷通道</h3>
                         <ul class="d-flex flex-column">
-                            <li><a href="findIllness" style="color: #ffffff; text-decoration: underline;">查看疾病百科</a></li>
-                            <li><a href="findMedicines" style="color: #ffffff; text-decoration: underline;">我要查找药品</a></li>
+                            <li><a href="findIllness"
+                                   style="color: #ffffff; text-decoration: underline;">查看疾病百科</a></li>
+                            <li><a href="findMedicines"
+                                   style="color: #ffffff; text-decoration: underline;">我要查找药品</a></li>
                             <li><a href="doctor" style="color: #ffffff; text-decoration: underline;">智能医生</a></li>
                         </ul>
                     </div>
@@ -157,9 +162,6 @@
             <ul>
                 <li th:class="${cur == 'profile' ? 'active': ''}">
                     <a href="profile"><i class="sl sl-icon-user"></i> 我的资料</a>
-                </li>
-                <li th:class="${cur == 'doctor' ? 'active': ''}">
-                    <a href="doctor"><i class="sl sl-icon-envelope-open"></i>智能医生</a>
                 </li>
                 <li th:if="${session.loginUser.roleStatus eq 1}" th:class="${cur == 'illness' ? 'active': ''}">
                     <a href="all-illness"><i class="sl sl-icon-layers"></i> 疾病管理</a>
