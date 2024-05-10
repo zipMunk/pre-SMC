@@ -483,7 +483,7 @@ function send() {
                 message = data['message'];
                 $('#messages').append("<div class=\"msg-received\">\n" +
                     "                   <div class=\"msg-image\">\n" +
-                    "                      <img src=\"assets/images/team/user-2.jpg\" alt=\"image\">\n" +
+                    "                      <img src=\"assets/images/team/doctor.png\" alt=\"image\">\n" +
                     "                   </div>\n" +
                     "                   <div class=\"msg-content\">\n" +
                     "                      <p>现在</p>\n" +

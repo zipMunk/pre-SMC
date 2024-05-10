@@ -48,5 +48,4 @@
 2024.5.7 by mpz
 
 1. 注意，前端所使用的bootstrap版本为5.0.2。
-1. 更改了illness.html中的一个小问题。
-1. 前端大改失败，等待后续继续修改。
+1. 修改了illness.html，doctor.html，custom.js，修改了智慧问诊界面，修复了一些小bug。
