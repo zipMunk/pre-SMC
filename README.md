@@ -49,3 +49,8 @@
 
 1. 注意，前端所使用的bootstrap版本为5.0.2。
 1. 修改了illness.html，doctor.html，custom.js，修改了智慧问诊界面，修复了一些小bug。
+
+2024.5.29 by mpz
+
+1. 修改了doctor.html。
+2. 阿里云天天给我发安全警报邮件，很烦。application.yml现在已改成加密模式。运行程序时请用群文件中的yml替换。
