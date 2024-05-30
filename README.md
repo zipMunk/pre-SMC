@@ -1,5 +1,14 @@
 # pre-SMC
 
+2024.5.29. by wzj
+
+1. 新增IpUtil工具类，提供获取用户Ip地址的功能
+
+2. 新增MapUtil工具类，提供使用高德地图WebAPI服务进行的IP定位和POI搜索功能，可以根据用户所在城市，搜索当前城市内的所有综合医院
+
+3. 新增Controller GeographyController，该Controller包含获取地理信息的接口GeoInfo，通过访问该接口可以实现上述功能，获取市内所有的综合医院。
+
+
 2024.4.30. by mpz 
 
 1. 删除了原来数据库中存储的所有疾病和药品，重新创建一些疾病和药品，上传了新的数据库脚本。 
@@ -49,3 +58,8 @@
 
 1. 注意，前端所使用的bootstrap版本为5.0.2。
 1. 修改了illness.html，doctor.html，custom.js，修改了智慧问诊界面，修复了一些小bug。
+
+2024.5.29 by mpz
+
+1. 修改了doctor.html。
+2. 阿里云天天给我发安全警报邮件，很烦。application.yml现在已改成加密模式。运行程序时请用群文件中的yml替换。

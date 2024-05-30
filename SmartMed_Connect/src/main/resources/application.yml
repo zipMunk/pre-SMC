@@ -11,8 +11,8 @@ spring:
     time-zone: GMT+8
   # 邮件配置
   mail:
-    username: 3554417685@qq.com
-    password: vospaheitimpdbdb
+    username: xxxxxxxxxx@qq.com
+    password: xxxxxxxxxx
     host: smtp.qq.com
     port: 465
     properties:
@@ -27,7 +27,7 @@ spring:
             class: javax.net.ssl.SSLSocketFactory
             fallback: false
     valid: 5
-    title: "寻药就医系统 - 用户认证"
+    title: "慧诊互联 - 用户认证"
     template: "您的动态验证码为：<strong style='color: red'>%s</strong>，%d分钟内有效，若非本人操作，请勿泄露。"
 # 日志配置
 logging:
@@ -38,10 +38,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 阿里云通义千问配置
-ai-key: sk-d70a6efd593a4d72b91a1cecd4408411
+ai-key: xxxxxxxxxx
 # 阿里云对象存储配置
 oss:
   bucket-name: smart-medi01
   end-point: oss-cn-beijing.aliyuncs.com
-  access-key: LTAI5tDSZp19JZjwPGLj8qqy
-  access-secret: Nxsm9t4XwmeAEfdT3GbUWSYS7CpQAj
+  access-key: xxxxxxxxxx
+  access-secret: xxxxxxxxxx
