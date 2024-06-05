@@ -11,8 +11,8 @@ spring:
     time-zone: GMT+8
   # 邮件配置
   mail:
-    username: xxxxxxxxxx@qq.com
-    password: xxxxxxxxxx
+    username: 3153474402@qq.com
+    password: smtgfqimwfpncadb
     host: smtp.qq.com
     port: 465
     properties:
@@ -38,10 +38,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 阿里云通义千问配置
-ai-key: xxxxxxxxxx
+ai-key: sk-d70a6efd593a4d72b91a1cecd4408411
 # 阿里云对象存储配置
 oss:
   bucket-name: smart-medi01
   end-point: oss-cn-beijing.aliyuncs.com
-  access-key: xxxxxxxxxx
-  access-secret: xxxxxxxxxx
+  access-key: LTAI5tDSZp19JZjwPGLj8qqy
+  access-secret: Nxsm9t4XwmeAEfdT3GbUWSYS7CpQAj
