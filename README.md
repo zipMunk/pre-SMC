@@ -1,5 +1,11 @@
 # pre-SMC
 
+2024.6.XX. by mpz
+
+1. 修改导航栏，底栏部分的前端界面。
+
+
+
 2024.5.29. by wzj
 
 1. 新增IpUtil工具类，提供获取用户Ip地址的功能
@@ -7,6 +13,8 @@
 2. 新增MapUtil工具类，提供使用高德地图WebAPI服务进行的IP定位和POI搜索功能，可以根据用户所在城市，搜索当前城市内的所有综合医院
 
 3. 新增Controller GeographyController，该Controller包含获取地理信息的接口GeoInfo，通过访问该接口可以实现上述功能，获取市内所有的综合医院。
+
+
 
 
 2024.4.30. by mpz 

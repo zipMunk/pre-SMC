@@ -28,10 +28,17 @@
                     </div>
                     <div class="navbar-collapse1" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav" id="responsive-menu">
-                            <li><a href="findIllness" style="margin-left: 70px">疾病百科</a></li>
+                            <li><a href="findIllness" style="margin-left: 10px">疾病百科</a></li>
                             <li><a href="findMedicines" style="margin-left: 40px">药品百科</a></li>
-                            <li><a href="doctor" style="margin-left: 40px">智能医生</a></li>
+                            <li><a href="doctor" style="margin-left: 40px">智能医生Qwen</a></li>
                         </ul>
+                    </div>
+                    <div th:if="${session.loginUser != null}" class="register-login">
+                        <div class="navbar-collapse1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="doctor" style="width: 170px">MING:更高效的智慧问诊</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div th:if="${session.loginUser == null}" class="header-btn" style="width: 170px;">
                         <input id="loginAccount" type="text" placeholder="账号">
@@ -64,52 +71,17 @@
 <section id="back" class="call-to p-0 bg-ftblue">
 </section>
 
-<footer id="footer" class="footer bg-ftblue">
-    <div class="footer-wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-3">
-                    <div class="ft-lists">
-                        <h3 class="cl-white">友情链接</h3>
-                        <ul class="d-flex flex-column">
-                            <li><a href="http://www.pptsd.com/"
-                                   style="color:#ffffff;text-decoration: underline;">医疗百科网</a></li>
-                            <li><a href="http://www.chls.net/"
-                                   style="color:#ffffff;text-decoration: underline;">医学教育网</a></li>
-                            <li><a href="http://www.pharmnet.com.cn/" style="color:#ffffff;text-decoration: underline;">中国医药网</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="ft-lists">
-                        <h3 class="cl-white">便捷通道</h3>
-                        <ul class="d-flex flex-column">
-                            <li><a href="findIllness"
-                                   style="color: #ffffff; text-decoration: underline;">查看疾病百科</a></li>
-                            <li><a href="findMedicines"
-                                   style="color: #ffffff; text-decoration: underline;">我要查找药品</a></li>
-                            <li><a href="doctor" style="color: #ffffff; text-decoration: underline;">智能医生</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="ft-lists">
-                        <h3 class="cl-white">意见反馈</h3>
-                        <p class="cl-white">联系我们并且提交反馈，我们会悉心听取您的意见！</p>
-                        <p class="cl-white">(+86) 8888 8888 8888</p>
-                        <div style="margin-top: 12px">
-                            <a href="feedback.html" style="color:#ffffff; text-decoration: underline;">提交反馈</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="ft-lists">
-                        <h3 class="cl-white">网站理念</h3>
-                        <p class="cl-white">
-                            智慧医药您提供疾病查询,常见疾病大全,帮您全面了解疾病病因症状、检查治疗、饮食护理等信息,是您疾病查询的好帮手。
-                        </p>
-                    </div>
+<footer id="footer"
+        style="background-image: url('/assets/images/footer_new.png'); background-size: cover; background-position: center; text-align: center; padding: 20px 0;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div style="flex: 1; max-width: 300px;">
+                <div>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; align-items: center;">
+                        <li style="margin-bottom: 10px; color:#ffffff">Developed by Team YangXuShanLi</li>
+                        <li style="margin-bottom: 10px; color:#ffffff">from Software Institute</li>
+                        <li style="color:#ffffff">of Shandong University, 2024.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -150,14 +122,17 @@
                 </div>
                 <div class="author-content pt-2 p-0">
                     <h3 class="mb-1" th:text="${session.loginUser.userName}"></h3>
-                    <p class="detail"><i class="fa fa-phone"></i> [[${session.loginUser.userTel}]]</p>
-                    <p class="detail"><i class="fa fa-envelope-o"></i> [[${session.loginUser.userEmail}]]</p>
+                    <p class="detail"><i class="fa fa-phone"></i>
+                        [[${session.loginUser.userTel}]]</p>
+                    <p class="detail"><i class="fa fa-envelope-o"></i>
+                        [[${session.loginUser.userEmail}]]</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard
+    <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i>
+        Dashboard
         Navigation</a>
     <div class="dashboard-nav">
         <div class="dashboard-nav-inner">
@@ -165,13 +140,16 @@
                 <li th:class="${cur == 'profile' ? 'active': ''}">
                     <a href="profile"><i class="sl sl-icon-user"></i> 我的资料</a>
                 </li>
-                <li th:if="${session.loginUser.roleStatus eq 1}" th:class="${cur == 'illness' ? 'active': ''}">
+                <li th:if="${session.loginUser.roleStatus eq 1}"
+                    th:class="${cur == 'illness' ? 'active': ''}">
                     <a href="all-illness"><i class="sl sl-icon-layers"></i> 疾病管理</a>
                 </li>
-                <li th:if="${session.loginUser.roleStatus eq 1}" th:class="${cur == 'medicine' ? 'active': ''}">
+                <li th:if="${session.loginUser.roleStatus eq 1}"
+                    th:class="${cur == 'medicine' ? 'active': ''}">
                     <a href="all-medical"><i class="sl sl-icon-layers"></i> 药品管理</a>
                 </li>
-                <li th:if="${session.loginUser.roleStatus eq 1}" th:class="${cur == 'feedback' ? 'active': ''}">
+                <li th:if="${session.loginUser.roleStatus eq 1}"
+                    th:class="${cur == 'feedback' ? 'active': ''}">
                     <a href="all-feedback"><i class="sl sl-icon-layers"></i> 反馈管理</a>
                 </li>
                 <li>
