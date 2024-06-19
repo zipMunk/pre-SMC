@@ -1,8 +1,16 @@
+// 前端负责用户界面和用户交互，收集用户输入并通过Ajax请求将数据发送到后端。
+// 后端接收请求后，执行相应的业务逻辑，并将结果返回给前端。
+// 前端根据后端返回的结果，进行页面的更新或提示用户。
+
 /**
  * 发送验证码
  */
 function sendEmailCode() {
+    // 获取用户输入的邮箱
+    //使用了jQuery来获取用户在输入框（id为userEmail）中输入的值。
+    // .val()方法返回输入框的当前值，并将其存储在变量email中。
     let email = $('#userEmail').val();
+    // 如果邮箱为空，提示用户并返回
     if (!email) {
         layer.msg("邮箱不能为空");
         return;
@@ -11,19 +19,23 @@ function sendEmailCode() {
         layer.msg("请输入正确的邮箱地址");
         return;
     }
+    // 发送Ajax请求给服务器，请求发送邮箱验证码
+    // jQuery 提供的用于发送 AJAX 请求的函数。
+    // 接受一个包含各种选项的 JavaScript 对象作为参数，这些选项定义了 AJAX 请求的各个方面。
     $.ajax({
-        type: "POST",
-        url: "login/sendEmailCode",
+        type: "POST",// 请求方式为 POST
+        url: "login/sendEmailCode",// 向 "login/sendEmailCode" 发送请求，这是服务器端的处理接口
         data: {
-            email: email,
+            email: email,// 发送的数据，这里是用户输入的邮箱地址
         },
-        dataType: "json",
-        success: function (data) {
-            if (data['code'] !== 'SUCCESS') {
-                layer.msg(data['message'])
-            } else {
-                // 禁用按钮，60秒倒计时
-                time("#email-code", 60);
+        dataType: "json",//指定了预期从服务器返回的数据类型。在这里，指定返回的数据应该是 JSON 格式的。
+        success: function (data) {// 请求成功的回调函数，data 是服务器返回的数据
+            // 根据服务器返回的消息进行处理
+            if (data['code'] !== 'SUCCESS') {// 如果服务器返回的状态码不是 'SUCCESS'
+                layer.msg(data['message'])// 使用 layer.msg 方法显示服务器返回的消息
+            } else {// 如果服务器返回的状态码是 'SUCCESS'
+                // 如果成功，禁用按钮并开始倒计时60秒
+                time("#email-code", 60);// 调用 time 函数开始倒计时，传入倒计时目标元素和秒数
             }
         }
     });
@@ -33,7 +45,8 @@ function sendEmailCode() {
  * 注册
  */
 function register() {
-    let userAccount = $('#userAccount').val();
+    // 获取用户输入的注册信息
+    let userAccount = $('#userAccount').val();//$('#userAccount') 选择器表示选取 id 为 userAccount 的元素。# 表示选择 id，后面跟着 id 的名称。$ 是 jQuery 的全局函数。它允许您使用 CSS 选择器来选取 HTML 元素。
     let userName = $('#userName').val();
     let userPwd = $('#userPwd').val();
     let userTel = $('#userTel').val();
@@ -42,11 +55,13 @@ function register() {
     let userEmail = $('#userEmail').val();
     let code = $('#code').val();
 
+    // 如果有任何输入信息为空，提示用户并返回
     if (!userAccount || !userName || !userPwd || !userTel || !userAge || !userEmail || !code) {
         layer.msg("请完整填写信息");
         return;
     }
 
+    // 发送Ajax请求给服务器，请求注册用户
     $.ajax({
         type: "POST",
         url: "login/register",
@@ -62,7 +77,9 @@ function register() {
         },
         dataType: "json",
         success: function (data) {
+            // 根据服务器返回的消息进行处理，并显示消息给用户
             layer.msg(data['message']);
+            // 如果注册成功，延时2秒后刷新页面
             if (data['code'] === 'SUCCESS') {
                 setTimeout('reload()', 2000);
             }
@@ -75,12 +92,15 @@ function register() {
  * 登录
  */
 function login() {
+    // 获取用户输入的登录信息
     let loginAccount = $('#loginAccount').val();
     let loginPassword = $('#loginPassword').val();
+    // 如果账号或密码为空，提示用户并返回
     if (!loginAccount || !loginPassword) {
         layer.msg("请完整登录信息");
         return;
     }
+    // 发送Ajax请求给服务器，请求用户登录
     $.ajax({
         type: "POST",
         url: "login/login",
@@ -90,7 +110,9 @@ function login() {
         },
         dataType: "json",
         success: function (data) {
+            // 根据服务器返回的消息进行处理，并显示消息给用户
             layer.msg(data['message']);
+            // 如果登录成功，延时2秒后刷新页面
             if (data['code'] === 'SUCCESS') {
                 setTimeout('reload()', 2000);
             }
@@ -138,21 +160,25 @@ function updateProfile() {
  * 上传头像
  */
 function uploadPhoto() {
+    // 创建一个 FormData 对象，用于存储上传的文件数据
     var formdata = new FormData();
+    // 获取页面中 id 为 img-file 的文件输入框的第一个文件，并将其添加到 FormData 中
     formdata.append("file", $("#img-file").get(0).files[0]);
+    // 发起 AJAX 请求
     $.ajax({
-        async: false,
-        type: "POST",
-        url: "file/upload",
-        dataType: "json",
-        data: formdata,
-        contentType: false,//ajax上传图片需要添加
-        processData: false,//ajax上传图片需要添加
+        async: false,// 设置同步请求（不推荐使用，一般应使用异步请求）
+        type: "POST",// 请求类型为 POST
+        url: "file/upload",// 请求的 URL 地址，上传文件的接口
+        dataType: "json",// 服务器返回的数据类型为 JSON 格式
+        data: formdata,// 发送的数据为 FormData 对象，包含上传的文件
+        contentType: false,//ajax上传图片需要添加,设置 contentType 为 false，因为 FormData 已经包含了正确的 Content-Type
+        processData: false,//ajax上传图片需要添加,设置 processData 为 false，因为不需要 jQuery 对 FormData 进行处理
         success: function (data) {
-            console.log(data);
-            layer.msg(data['message']);
-            $("#img-preview").attr('src', data['data']);
-            $("#img").attr('value', data['data']);
+            // 成功回调函数，处理服务器返回的数据
+            console.log(data); // 在控制台打印服务器返回的数据
+            layer.msg(data['message']);// 使用 layer.msg() 方法显示服务器返回的消息
+            $("#img-preview").attr('src', data['data']);// 将返回的图片地址设置为页面中 id 为 img-preview 的元素的 src 属性值
+            $("#img").attr('value', data['data']); // 将返回的图片地址设置为页面中 id 为 img 的元素的 value 属性值
         }
     });
 }

@@ -3,9 +3,11 @@
  * @param email
  * @returns {boolean}
  */
+// 每个函数用于验证不同类型的输入格式是否符合特定的正则表达式规则。
 function emailReg(email) {
     let emailReg = /^[\da-z]+([\-\.\_]?[\da-z]+)*@[\da-z]+([\-\.]?[\da-z]+)*(\.[a-z]{2,})+$/;
     return emailReg.test(email);
+    //正则表达式对象的 test 方法，对传入的 email 参数进行正则表达式匹配。如果 email 字符串符合正则表达式的规则，则返回 true；否则返回 false。
 }
 
 /**

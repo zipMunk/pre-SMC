@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 用户控制器
- *
- * @author XUEW
+ * 处理用户相关操作，如修改资料和修改密码
  */
 @RestController
 @RequestMapping(value = "user")
@@ -18,28 +17,40 @@ public class UserController extends BaseController<User> {
 
     /**
      * 修改资料
+     * @param user 要保存的用户对象
+     * @return 返回操作结果，成功或失败信息
      */
     @PostMapping("/saveProfile")
     public RespResult saveProfile(User user) {
+        // 检查用户对象是否为空
         if (Assert.isEmpty(user)) {
             return RespResult.fail("保存对象不能为空");
         }
+        // 保存用户信息到数据库
         user = userService.save(user);
+        // 更新当前登录用户的信息
         session.setAttribute("loginUser", user);
+        // 返回保存成功的结果
         return RespResult.success("保存成功");
     }
 
     /**
      * 修改密码
+     * @param oldPass 旧密码
+     * @param newPass 新密码
+     * @return 返回操作结果，成功或失败信息
      */
     @PostMapping("/savePassword")
     public RespResult savePassword(String oldPass, String newPass) {
         if (!loginUser.getUserPwd().equals(oldPass)) {
             return RespResult.fail("旧密码错误");
         }
+        // 更新用户的新密码
         loginUser.setUserPwd(newPass);
         loginUser = userService.save(loginUser);
+        // 更新当前登录用户的信息
         session.setAttribute("loginUser", loginUser);
+        // 返回保存成功的结果
         return RespResult.success("保存成功");
     }
 }

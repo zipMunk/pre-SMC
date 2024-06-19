@@ -13,8 +13,9 @@
 
  Date: 03/05/2024 21:30:28
 */
-
+-- 设置字符集为utf8mb4。
 SET NAMES utf8mb4;
+-- 禁用外键检查，以防止在删除或插入数据时出现外键约束错误。
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -246,3 +247,4 @@ INSERT INTO `user` VALUES (5, 'zhangsan', '张三', '123456', 23, '女', 'isxuew
 INSERT INTO `user` VALUES (6, 'test_user01', '张三', '123456', 22, '男', '3153474402@qq.com', '12345678901', 0, 'https://moti-cloud-v2.oss-cn-beijing.aliyuncs.com/Snipaste_2022-05-01_15-37-01.png', '2024-04-18 16:59:39', '2024-04-18 16:59:39');
 
 SET FOREIGN_KEY_CHECKS = 1;
+--     启用 MySQL 数据库中的外键约束检查的命令。
