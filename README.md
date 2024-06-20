@@ -75,8 +75,11 @@
 2024.6.20 by kyh
 
 1.完善了登录和注册的后端实现，登录和注册之后的用户信息已经保存下来，直接调用get方法即可获取相应用户信息（userController.loginUser）。
+
 2.添加了病史的数据库表（需要重新运行sql文件），新增实现病史的实体类 PatientHistory.java，相应的DAO接口 PatientHistoryDao.java，服务类 PatientHistoryService.java 控制器类 PatientHistoryController.java。
+
 3.注释了BaseController.java的ApiService 自动注入，避免了bean的循环依赖。
+
 4.大改了ApiService.java服务类，触发智能问诊模式之后会自动保存相应的病史信息，同时给出问诊结果的时候会自动整合病史和当前的症状，从而给出更加合理的诊断结果。
 
 
