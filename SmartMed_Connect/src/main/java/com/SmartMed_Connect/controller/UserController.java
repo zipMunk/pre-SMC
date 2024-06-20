@@ -2,7 +2,9 @@ package com.SmartMed_Connect.controller;
 
 import com.SmartMed_Connect.dto.RespResult;
 import com.SmartMed_Connect.entity.User;
+import com.SmartMed_Connect.service.ApiService;
 import com.SmartMed_Connect.utils.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "user")
 public class UserController extends BaseController<User> {
+
 
     /**
      * 修改资料

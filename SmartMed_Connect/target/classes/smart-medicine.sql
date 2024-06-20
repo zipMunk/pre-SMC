@@ -256,12 +256,99 @@ CREATE TABLE `user` (
   KEY `create_time` (`create_time`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `patient_history`;
+create table `patient_history` (
+   `id` int(11) not null auto_increment comment '病史主键id',
+   `user_id` int(11) not null comment '用户id',
+   `first_query` mediumtext not null comment '病人第一次询问',
+   `user_age` int(11) not null comment '用户年龄',
+   `user_sex` varchar(1) not null comment '用户性别',
+   `height_and_weight` mediumtext not null comment '身高体重',
+   `symptoms` mediumtext not null comment '症状',
+   `episode_details` mediumtext not null comment '病情发作相关细节，如发作时间，持续时间，发作频率',
+   `lifestyle_factors` mediumtext not null comment '表示生活方式因素，包括饮食、运动、睡眠等',
+   `medical_history` mediumtext not null comment '病史',
+   `allergic_drugs` mediumtext not null comment '过敏药物',
+   `using_drugs` mediumtext not null comment '正在使用的药物',
+   `create_time` datetime DEFAULT current_timestamp comment '记录时间',
+   `diagnostic_result` mediumtext not null comment '诊断结果',
+   primary key (`id`),
+   KEY `create_time` (`create_time`)
+)ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+
+begin;
+INSERT INTO `patient_history` (`user_id`, `first_query`, `user_age`, `user_sex`, `height_and_weight`, `symptoms`, `episode_details`, `lifestyle_factors`, `medical_history`, `allergic_drugs`, `using_drugs`, `create_time`, `diagnostic_result`)
+VALUES
+    (6, '首次询问内容1', 30, '男', '175cm, 70kg', '头痛、恶心', '每周发作一次，持续2小时', '饮食规律，每天运动30分钟', '高血压', '无', '降压药', '2024-06-20 10:00:00', '偏头痛'),
+    (6, '首次询问内容2', 25, '女', '160cm, 55kg', '胸闷、气短', '不规律发作，时长不定', '饮食偏高脂肪，偶尔运动', '无', '青霉素', '抗生素', '2024-06-20 11:00:00', '呼吸道感染'),
+    (6, '首次询问内容3', 45, '男', '180cm, 80kg', '关节疼痛、肌肉酸痛', '每月发作数次，持续数天', '饮食清淡，每周跑步', '类风湿性关节炎', '花粉', '抗过敏药物', '2024-06-20 12:00:00', '类风湿性关节炎急性发作');
+
+
+INSERT INTO `patient_history` (
+    `user_id`, `first_query`, `user_age`, `user_sex`, `height_and_weight`,
+    `symptoms`, `episode_details`, `lifestyle_factors`, `medical_history`,
+    `allergic_drugs`, `using_drugs`, `diagnostic_result`
+) VALUES (
+             6,
+             '我最近感到胸闷，有时会头晕。',
+             45,
+             '男',
+             '身高：175 cm，体重：85 kg',
+             '胸闷，头晕',
+             '胸闷从两周前开始，每天都有几次，持续约10-15分钟；头晕偶尔发生，通常在胸闷时伴随出现。',
+             '饮食较为油腻，缺乏运动，睡眠时间不规律。',
+             '高血压，家族中有心脏病史。',
+             '无',
+             '硝苯地平（控制血压）',
+             '初步诊断为冠心病，建议进一步检查心电图和心脏彩超。'
+         );
+
+INSERT INTO `patient_history` (
+    `user_id`, `first_query`, `user_age`, `user_sex`, `height_and_weight`,
+    `symptoms`, `episode_details`, `lifestyle_factors`, `medical_history`,
+    `allergic_drugs`, `using_drugs`, `diagnostic_result`
+) VALUES (
+             6,
+             '上次检查后，胸闷症状依然存在，有时还伴有心悸。',
+             46,
+             '男',
+             '身高：175 cm，体重：84 kg',
+             '胸闷，心悸',
+             '胸闷和心悸在夜间尤其明显，频率有所增加，持续时间不变。',
+             '改善饮食习惯，开始每周三次轻度运动，但仍缺乏足够睡眠。',
+             '高血压，冠心病（已确诊），家族心脏病史。',
+             '无',
+             '硝苯地平（控制血压），阿司匹林（预防血栓）',
+             '继续监测心脏情况，建议进行24小时动态心电图监测。'
+         );
+
+INSERT INTO `patient_history` (
+    `user_id`, `first_query`, `user_age`, `user_sex`, `height_and_weight`,
+    `symptoms`, `episode_details`, `lifestyle_factors`, `medical_history`,
+    `allergic_drugs`, `using_drugs`, `diagnostic_result`
+) VALUES (
+             6,
+             '最近一个月内，夜间心悸加重，并有轻微呼吸困难。',
+             47,
+             '男',
+             '身高：175 cm，体重：82 kg',
+             '心悸，轻微呼吸困难',
+             '心悸和呼吸困难在夜间最为严重，频率增加到几乎每晚都有。',
+             '保持健康饮食，每周三次运动，尝试调整作息时间，但效果不佳。',
+             '高血压，冠心病（已确诊），家族心脏病史。',
+             '无',
+             '硝苯地平（控制血压），阿司匹林（预防血栓），地高辛（心脏病治疗）',
+             '病情可能有恶化趋势，建议住院观察并调整药物治疗方案。'
+         );
+commit;
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
 INSERT INTO `user` (`id`, `user_account`, `user_name`, `user_pwd`, `user_age`, `user_sex`, `user_email`, `user_tel`, `role_status`, `img_path`, `create_time`, `update_time`) VALUES (4, 'admin', '管理员', '123456', 23, '男', '2678788262@qq.com', '17746678954', 1, 'https://moti-cloud-v2.oss-cn-beijing.aliyuncs.com/Snipaste_2022-05-01_15-37-01.png', '2022-05-03 15:55:41', '2022-05-03 15:56:15');
 INSERT INTO `user` (`id`, `user_account`, `user_name`, `user_pwd`, `user_age`, `user_sex`, `user_email`, `user_tel`, `role_status`, `img_path`, `create_time`, `update_time`) VALUES (5, 'zhangsan', '张三', '123456', 23, '女', 'isxuewei@qq.com', '17879544343', 0, 'https://su-share.oss-cn-beijing.aliyuncs.com/5/5dc107dcd2db4cbd8ad561f4c1642886.png', '2022-05-03 16:15:53', '2022-05-03 16:17:12');
+INSERT INTO `user` (`id`, `user_account`, `user_name`, `user_pwd`, `user_age`, `user_sex`, `user_email`, `user_tel`, `role_status`, `img_path`, `create_time`, `update_time`) VALUES (6, 'A611699', '柯宇浩', 'KYHq2257', 22, '男', 'A611799@163.com', '18560199297', 1, 'https://su-share.oss-cn-beijing.aliyuncs.com/5/5dc107dcd2db4cbd8ad561f4c1642886.png', '2022-05-03 16:15:53', '2022-05-03 16:17:12');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

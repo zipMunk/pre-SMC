@@ -22,9 +22,9 @@ import java.util.List;
  * @param <T> 泛型类型，用于支持不同的实体类型
  */
 public class BaseController<T> {
-    // 自动注入常用服务对象，提供业务逻辑处理
-    @Autowired
-    protected ApiService apiService;
+//    // 自动注入常用服务对象，提供业务逻辑处理
+//    @Autowired
+//    protected ApiService apiService;
     @Autowired
     protected UserService userService;
     @Autowired
@@ -54,7 +54,7 @@ public class BaseController<T> {
     protected HttpServletRequest request;
     protected HttpServletResponse response;
     protected HttpSession session;
-    protected User loginUser;
+    public User loginUser;
     protected List<IllnessKind> kindList;
 
     /**

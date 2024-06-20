@@ -46,7 +46,7 @@ function sendEmailCode() {
  */
 function register() {
     // 获取用户输入的注册信息
-    let userAccount = $('#userAccount').val();//$('#userAccount') 选择器表示选取 id 为 userAccount 的元素。# 表示选择 id，后面跟着 id 的名称。
+    let userAccount = $('#userAccount').val();//$('#userAccount') 选择器表示选取 id 为 userAccount 的元素。# 表示选择 id，后面跟着 id 的名称。$ 是 jQuery 的全局函数。它允许您使用 CSS 选择器来选取 HTML 元素。
     let userName = $('#userName').val();
     let userPwd = $('#userPwd').val();
     let userTel = $('#userTel').val();

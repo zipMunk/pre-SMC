@@ -3,7 +3,9 @@ package com.SmartMed_Connect.controller;
 import cn.hutool.core.util.StrUtil;
 import com.SmartMed_Connect.dto.RespResult;
 import com.SmartMed_Connect.entity.User;
+import com.SmartMed_Connect.service.ApiService;
 import com.SmartMed_Connect.utils.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,10 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "login")
 public class LoginController extends BaseController<User> {
+
+
+    @Autowired
+    public UserController userController;
 
     /**
      * 注册用户
@@ -66,6 +72,8 @@ public class LoginController extends BaseController<User> {
         user.setImgPath("https://moti-cloud-v2.oss-cn-beijing.aliyuncs.com/Snipaste_2022-05-01_15-37-01.png");
         user = userService.save(user);
         // 注册成功，将用户信息存入 session，并返回成功信息
+        userController.loginUser=user;
+        System.out.println(user);
         session.setAttribute("loginUser", user);
         return RespResult.success("注册成功", user);
     }
@@ -83,6 +91,8 @@ public class LoginController extends BaseController<User> {
         // 如果找到匹配的用户记录，则表示登录成功
         if (Assert.notEmpty(users)) {
             session.setAttribute("loginUser", users.get(0));
+            userController.loginUser=users.get(0);
+            System.out.println(users.get(0));
             return RespResult.success("登录成功");
         }
         // 如果账户不存在，返回账户尚未注册的提示信息

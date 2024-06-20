@@ -2,6 +2,9 @@
 
 package com.SmartMed_Connect.service;
 
+import com.SmartMed_Connect.controller.UserController;
+import com.SmartMed_Connect.entity.PatientHistory;
+import com.SmartMed_Connect.entity.User;
 import com.alibaba.dashscope.aigc.generation.Generation;
 import com.alibaba.dashscope.aigc.generation.GenerationOutput;
 import com.alibaba.dashscope.aigc.generation.GenerationParam;
@@ -14,14 +17,27 @@ import com.alibaba.dashscope.exception.ApiException;
 import com.alibaba.dashscope.exception.InputRequiredException;
 import com.alibaba.dashscope.exception.NoApiKeyException;
 import com.alibaba.dashscope.utils.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ApiService {
+
+    @Autowired
+    protected PatientHistoryService patientHistoryService;
+
+    @Autowired
+    private UserController userController;
+
+    @Autowired
+    protected UserService userService;
+
+    private PatientHistory patientHistory = new PatientHistory();
 
     static {
         // 设置 API key
@@ -32,11 +48,14 @@ public class ApiService {
     private PatientInfo patientInfo = new PatientInfo();
     private boolean isTriggering=false;
 
+
     public String query(String queryMessage) {
         try {
             if(messages.isEmpty())
             {
                 messages.add(createMessage(Role.SYSTEM, "你是一名智能医生，请结合上下文，回答病人的问题，不许回答其他问题。"));
+//                System.out.println("用户Id"+userController.loginUser.getId());
+//                patientHistoryService.findByUserId(userController.loginUser.getId());
             }
             if(!isTriggering)//如果当前不在问诊模式
             {
@@ -66,13 +85,30 @@ public class ApiService {
                     savePatientInfo(queryMessage);//保存用户最后一次回答
                     isTriggering=false;
                     queryStep=0;
-                    messages.add(createMessage(Role.USER, patientInfo.toString()+"请你根据病人信息给出建议"));
+
+
+                    //查找病史
+                    List<PatientHistory> PatientHistoryList = patientHistoryService.findByUserId(userController.loginUser.getId());
+                    // 将列表中的元素转换成字符串并连接起来
+                    String historyString = PatientHistoryList.stream()
+                            .map(PatientHistory::toString)
+                            .collect(Collectors.joining("。      "));
+                    System.out.println(historyString);
+
+
+                    messages.add(createMessage(Role.USER, "病人的以往病史是："+historyString+"当前的情况是："+patientInfo.toString()+"请你结合病人的病史和当前症状给出相应的建议"));
                     GenerationParam param = createGenerationParam(messages);
                     GenerationResult result = callGenerationWithMessages(param);
                     messages.add(result.getOutput().getChoices().get(0).getMessage());
                     GenerationOutput output = result.getOutput();
-                    printMessages();
-                    return output.getChoices().get(0).getMessage().getContent();
+//                    printMessages();
+                    System.out.println(output.getChoices().get(0).getMessage().getContent());
+                    patientHistory=PatientInfoToPatientHistory(patientInfo,output.getChoices().get(0).getMessage().getContent());
+                    //把当前的病症保存为病史
+                    patientHistoryService.save(patientHistory);
+//
+
+                    return "结合病史和当前病人症状得到的诊断结果是：                   "+output.getChoices().get(0).getMessage().getContent();
                 }
                 savePatientInfo(queryMessage);//保存上一次提问的用户回答
                 String response = getNextQueryMessage();//获得AI下一次的问题
@@ -93,7 +129,7 @@ public class ApiService {
         queryStep++;
         switch (queryStep) {
             case 1:
-                return "请提供您的个人基本信息，包括年龄、性别、身高和体重。";
+                return "请提供您的个人基本信息，包括身高和体重。";
             case 2:
                 return "您目前有哪些症状？请详细描述。";
             case 3:
@@ -118,7 +154,7 @@ public class ApiService {
                 patientInfo.setFirstQuery(queryMessage);// 第一次询问信息
                 break;
             case 1:
-                patientInfo.setPersonalInfo(queryMessage);// 个人基本信息，如年龄、性别、身高、体重
+                patientInfo.setPersonalInfo(queryMessage);// 个人基本信息，身高、体重
                 break;
             case 2:
                 patientInfo.setSymptoms(queryMessage);// 症状
@@ -236,5 +272,39 @@ public class ApiService {
         public void setFirstQuery(String firstQuery) {
             this.firstQuery = firstQuery;
         }
+    }
+
+    private PatientHistory PatientInfoToPatientHistory(PatientInfo patientInfo,String currentDiagnosticResult) {
+        System.out.println("执行到这里了");
+        patientHistory.setId(null);
+        //设置用户id
+        patientHistory.setUserId(userController.loginUser.getId());
+
+        //设置用户第一次询问的信息
+        patientHistory.setFirstQuery(patientInfo.firstQuery);
+        //设置用户年龄
+        patientHistory.setUserAge(userController.loginUser.getUserAge());
+        //设置用户性别
+        patientHistory.setUserSex(userController.loginUser.getUserSex());
+        //设置用户身高体重
+        patientHistory.setHeightAndWeight(patientInfo.personalInfo);
+        //设置用户症状
+        patientHistory.setSymptoms(patientInfo.symptoms);
+        //设置用户病情发作相关细节，如发作时间，持续时间，发作频率
+        patientHistory.setEpisodeDetails(patientInfo.episodeDetails);
+        //表示生活方式因素，包括饮食、运动、睡眠等
+        patientHistory.setLifestyleFactors(patientInfo.lifestyleFactors);
+        //病史
+        patientHistory.setMedicalHistory(patientInfo.medicalHistory);
+        //过敏药物
+        patientHistory.setAllergicDrugs(patientInfo.allergicDrugs);
+        //正在使用的药物
+        patientHistory.setUsingDrugs(patientInfo.usingDrugs);
+        //当前诊断结果
+        patientHistory.setDiagnosticResult(currentDiagnosticResult);
+        //查看保存内容
+        System.out.println(patientHistory);
+
+        return patientHistory;
     }
 }

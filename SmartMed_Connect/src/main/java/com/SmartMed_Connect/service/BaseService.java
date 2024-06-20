@@ -61,4 +61,7 @@ public abstract class BaseService<T> implements IService<T> {
     @Autowired
     protected PageviewDao pageviewDao;
 
+    @Autowired
+    protected PatientHistoryDao patientHistoryDao;
+
 }
