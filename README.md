@@ -73,6 +73,7 @@
 2. 阿里云天天给我发安全警报邮件，很烦。application.yml现在已改成加密模式。运行程序时请用群文件中的yml替换。
 
 2024.6.20 by kyh
+
 1.完善了登录和注册的后端实现，登录和注册之后的用户信息已经保存下来，直接调用get方法即可获取相应用户信息（userController.loginUser）。
 2.添加了病史的数据库表（需要重新运行sql文件），新增实现病史的实体类 PatientHistory.java，相应的DAO接口 PatientHistoryDao.java，服务类 PatientHistoryService.java 控制器类 PatientHistoryController.java。
 3.注释了BaseController.java的ApiService 自动注入，避免了bean的循环依赖。
