@@ -219,7 +219,7 @@ public class ApiService {
 
     private static class PatientInfo {
         private String firstQuery;//第一次询问信息
-        private String personalInfo;//个人基本信息，如年龄、性别、身高、体重
+        private String personalInfo;//个人基本信息，如身高、体重
         private String symptoms;//症状
         private String episodeDetails;//病情发作相关细节，如发作时间，持续时间，发作频率
         private String lifestyleFactors;//表示生活方式因素，包括饮食、运动、睡眠等
