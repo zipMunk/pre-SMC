@@ -30,4 +30,13 @@ public class MessageController extends BaseController<User> {
         // 将查询结果封装为成功的 RespResult 对象，并返回给客户端
         return RespResult.success(result);
     }
+
+    // 向智能问诊界面发送查询信息
+    @PostMapping("/smart_query")
+    public RespResult smart_query(String content) {
+        // 调用 apiService 的 query 方法，处理消息查询请求
+        String result = smartApiService.query(content);
+        // 将查询结果封装为成功的 RespResult 对象，并返回给客户端
+        return RespResult.success(result);
+    }
 }

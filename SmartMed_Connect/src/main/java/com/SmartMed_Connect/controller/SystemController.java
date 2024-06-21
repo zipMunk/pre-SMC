@@ -38,6 +38,18 @@ public class SystemController extends BaseController<User> {
     }
 
     /**
+     * 智能医生
+     */
+    @GetMapping("/smart_doctor")
+    public String smart_doctor(Map<String, Object> map) {
+        // 如果未登录用户访问智慧查询页面，则重定向到首页
+        if (Assert.isEmpty(loginUser)) {
+            return "redirect:/index.html";
+        }
+        // 返回 "doctor" 字符串，表示将会渲染名为 "smart_doctor" 的视图
+        return "smart-doctor";
+    }
+    /**
      * 退出登录
      */
     @GetMapping("/logout")

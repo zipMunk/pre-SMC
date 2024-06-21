@@ -50,12 +50,16 @@ public class BaseController<T> {
     @Autowired
     protected EmailClient emailClient;
 
+    @Autowired
+    protected SmartApiService smartApiService;
+
     // 定义用于处理请求、响应和会话的对象
     protected HttpServletRequest request;
     protected HttpServletResponse response;
     protected HttpSession session;
     public User loginUser;
     protected List<IllnessKind> kindList;
+
 
     /**
      * 保存、修改
