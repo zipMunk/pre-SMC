@@ -537,7 +537,7 @@ function smart_send() {
     $('#message').val('');
     $.ajax({
         type: "POST",
-        url: "message/query",
+        url: "message/smart_query",
         data: {
             content: message,
         }, // 发起一个POST请求到服务器端点message/query，传递用户发送的消息作为数据。请求的数据类型设置为JSON。
