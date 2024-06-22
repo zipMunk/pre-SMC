@@ -119,7 +119,4 @@ public class PatientHistoryService extends BaseService<PatientHistory> {
         }
         return null;
     }
-
-
-
 }

@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -187,12 +188,14 @@ public class ApiService {
                 .build();
     }
 
-    private static GenerationResult callGenerationWithMessages(GenerationParam param) throws ApiException, NoApiKeyException, InputRequiredException {
+    private static GenerationResult callGenerationWithMessages(GenerationParam param) throws ApiException, NoApiKeyException, InputRequiredException
+    {
         Generation gen = new Generation();
         return gen.call(param);
     }
 
-    private static Message createMessage(Role role, String content) {
+    private static Message createMessage(Role role, String content) 
+    {
         return Message.builder().role(role.getValue()).content(content).build();
     }
 
@@ -203,7 +206,8 @@ public class ApiService {
         MessageManager msgManager = new MessageManager(10);
         Message systemMsg =
                 Message.builder().role(Role.SYSTEM.getValue()).content("You are a helpful assistant.下面的问题只能回答一个0~1之间的小数，其余内容都不用回答").build();
-        Message userMsg = Message.builder().role(Role.USER.getValue()).content(queryMessage+"，请你根据用户的询问给出用户此时身体不舒服的概率（0~1之间的小数），依据是出现疾病之类的词，只需要返回一个小数就行").build();
+        Message userMsg =
+                Message.builder().role(Role.USER.getValue()).content(queryMessage+"，请你根据用户的询问给出用户此时身体不舒服的概率（0~1之间的小数），依据是出现疾病之类的词，只需要返回一个小数就行").build();
         msgManager.add(systemMsg);
         msgManager.add(userMsg);
         QwenParam param =
@@ -304,7 +308,6 @@ public class ApiService {
         patientHistory.setDiagnosticResult(currentDiagnosticResult);
         //查看保存内容
         System.out.println(patientHistory);
-
         return patientHistory;
     }
 }
