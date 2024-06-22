@@ -49,6 +49,16 @@
                     <p th:text="${medicine.medicineEffect}">
                     </p>
                 </div>
+                <div th:if="${session.loginUser == null}">
+                    <div style="margin-top: 10px">
+                        <a href="smart_doctor" class="btn">登陆后，了解更多</a>
+                    </div>
+                </div>
+                <div th:if="${session.loginUser != null}">
+                    <div style="margin-top: 10px">
+                        <a href="smart_doctor" class="btn">了解更多</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="w-process mt-5">
