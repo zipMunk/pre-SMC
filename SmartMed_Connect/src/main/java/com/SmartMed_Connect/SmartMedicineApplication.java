@@ -12,5 +12,4 @@ public class SmartMedicineApplication {
         //启动 Spring Boot 应用程序，传递主配置类和命令行参数。
         SpringApplication.run(SmartMedicineApplication.class, args);
     }
-
 }
