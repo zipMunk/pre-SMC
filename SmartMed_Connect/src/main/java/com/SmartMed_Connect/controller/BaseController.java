@@ -49,6 +49,9 @@ public class BaseController<T> {
     @Autowired
     protected FeedbackService feedbackService;
 
+    @Autowired
+    protected PatientHistoryService patientHistoryService;
+
     // 自动注入通用的基础服务对象，处理泛型类型的实体对象
     @Autowired
     protected BaseService<T> service;

@@ -70,7 +70,8 @@
                                                 <td th:text="${feedback.content}"></td>
                                                 <td th:text="${#dates.format(feedback.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                                 <td>
-                                                    <a th:onclick="deleteFeedback([[${feedback.id}]])" href="#"><span
+                                                    <a th:onclick="deleteFeedback([[${feedback.id}]])" href="#">
+                                                        <span
                                                             class="label text-success">删除</span></a>
                                                 </td>
                                             </tr>

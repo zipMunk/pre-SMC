@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
@@ -87,8 +87,6 @@
             opacity: 0.7; /* 设置背景图透明度 */
             z-index: -1;
         }
-
-
     </style>
 </head>
 <body>
@@ -109,7 +107,7 @@
                         <h3>基于病历的智慧问诊</h3>
                         <ul>
                             <li><a href="/doctor">聊天界面</a></li>
-                            <li><a href="/patient-history">用户病例</a></li>
+                            <li><a href="/patient_history">用户病例</a></li>
                         </ul>
                     </div>
                 </div>
@@ -131,24 +129,47 @@
                                     </div>
                                 </div>
                                 <div class="message-content">
-                                    <div id="messages" style="height: 500px;overflow-y: auto">
-                                        <div class="msg-received">
-                                            <div class="msg-image">
-                                                <img src="assets/images/team/doctor.png" alt="image">
-                                            </div>
-                                            <div class="msg-content">
-                                                <p>现在</p>
-                                                <p class="msg">
-                                                    [[${session.loginUser.userName}]]你好，我是您的智能专属医生，身体不舒服或者有任何需要咨询的问题，都可以向我提问，我会全心全意为您解答！
-                                                </p>
+                                    <!-- 这里是新的表格部分 -->
+                                    <div class="col-lg-12 col-md-12 col-xs-12">
+                                        <div class="dashboard-content">
+                                            <div class="row mb-4">
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+                                                    <div class="dashboard-list-box with-icons">
+                                                        <div class="dashboard-title">
+                                                            <h4 class="mb-0">病历信息</h4>
+                                                            <p class="mb-0">
+                                                                共收集 [[${patientHistoryList != null ? patientHistoryList.size() : 0}]] 条病历信息。
+                                                                [[${session.loginUser.id}]]
+                                                            </p>
+                                                        </div>
+                                                        <div class="table-responsive table-desi">
+                                                            <table class="basic-table table table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>首次问诊</th>
+                                                                    <th>年龄</th>
+                                                                    <th>症状</th>
+                                                                    <th>发作详情</th>
+                                                                    <th>诊断结果</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="history : ${patientHistoryList}">
+                                                                    <td th:text="${history.firstQuery}"></td>
+                                                                    <td th:text="${history.userAge}"></td>
+                                                                    <td th:text="${history.symptoms}"></td>
+                                                                    <td th:text="${history.episodeDetails}"></td>
+                                                                    <td th:text="${history.diagnosticResult}"></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="msg-reply">
-                                        <textarea id="message" placeholder="输入要咨询的内容..."></textarea>
-                                        <button onclick="send()" class="btn btn-na mt-2 pull-right">发送</button>
-                                    </div>
+                                    <!-- 结束 -->
                                 </div>
                             </div>
                         </div>
@@ -175,10 +196,44 @@
 <script src="assets/js/dashboard-custom.js"></script>
 <script src="common/utils/reg.js"></script>
 <script src="common/layer/layer.js"></script>
-<script src="common/custom.js"></script>
+<!-- <script src="common/custom.js"></script> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 获取当前用户的ID
+        var userId = getCurrentUserId();
+
+        // 发送Ajax请求获取病历信息
+        fetch(`/patient-history?userId=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                // 更新病历信息数量
+                document.getElementById('patientHistoryCount').innerText = data.length;
+
+                // 构建表格内容
+                const tableBody = document.getElementById('patientHistoryTableBody');
+                tableBody.innerHTML = ''; // 清空表格内容
+                data.forEach(patientHistory => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${patientHistory.id}</td>
+                        <td>${patientHistory.firstQuery}</td>
+                        <td>${patientHistory.userAge}</td>
+                        <td>${patientHistory.symptoms}</td>
+                        <td>${patientHistory.episodeDetails}</td>
+                        <td>${patientHistory.diagnosticResult}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    function getCurrentUserId() {
+        // 假设你有一个函数可以获取当前用户的ID
+        // 从session获取
+        return [[${session.loginUser.id}]];
+    }
+</script>
 </body>
 </html>
 
-<script>
-    window.onload = messageInit;
-</script>

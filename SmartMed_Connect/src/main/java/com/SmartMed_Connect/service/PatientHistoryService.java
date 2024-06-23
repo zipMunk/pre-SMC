@@ -71,7 +71,7 @@ public class PatientHistoryService extends BaseService<PatientHistory> {
             patientHistoryDao.insert(o);
         }else {
             // 如果 ID 不为空，则更新已有对象
-            System.out.println("跟新病历");
+            System.out.println("更新病历");
             patientHistoryDao.updateById(o);
         }
 
@@ -114,8 +114,12 @@ public class PatientHistoryService extends BaseService<PatientHistory> {
             QueryWrapper<PatientHistory> wrapper = new QueryWrapper<>();
             wrapper.eq("user_id", userId);
             return patientHistoryDao.selectList(wrapper);
-
         }
         return null;
+    }
+
+    public List<PatientHistory> findByUserIdAll(Integer userId)
+    {
+        return query(null);
     }
 }
