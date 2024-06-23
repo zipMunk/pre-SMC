@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  * 用户控制器
  * 处理用户相关操作，如修改资料和修改密码
  */
-@RestController
-@RequestMapping(value = "user")
+@RestController//相当于 @Controller 和 @ResponseBody 的结合，表示这个类的所有方法返回的数据直接写入 HTTP 响应体中
+@RequestMapping(value = "user")//用于映射 HTTP 请求的 URL 路径到类或方法上。
 public class UserController extends BaseController<User> {
-
 
     /**
      * 修改资料

@@ -70,13 +70,13 @@ public class Illness {
      * 使用了@TableField(exist = false) 注解的字段不会被映射到数据库表中的任何列。
      * 在业务逻辑中，我们需要临时存储一些不需要持久化的数据。
      */
-    @TableField(exist = false)// MyBatis-Plus 注解，指定该字段在数据库表中不存在
+    @TableField(exist = false)
     private IllnessKind kind;
 
     /**
      * 疾病相关药物对象
      * 该字段表示与疾病相关的药物对象，在数据库表中不存在。
      */
-    @TableField(exist = false)// MyBatis-Plus 注解，指定该字段在数据库表中不存在
+    @TableField(exist = false)
     private IllnessMedicine illnessMedicine;
 }

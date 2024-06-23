@@ -17,9 +17,6 @@ import java.util.Map;
 @Service
 public class PatientHistoryService extends BaseService<PatientHistory> {
 
-    @Autowired
-    protected PatientHistoryDao patientHistoryDao;
-
     /**
      * 根据条件查询 PatientHistory 对象列表
      *
@@ -29,18 +26,18 @@ public class PatientHistoryService extends BaseService<PatientHistory> {
     @Override
     public List<PatientHistory> query(PatientHistory o)
     {
+        //创建查询条件的包装器（QueryWrapper），用于构建数据库查询条件
         QueryWrapper<PatientHistory> wrapper = new QueryWrapper();
         if(Assert.notEmpty(o))
         {
+            // 将对象转换为 Map 形式
             Map<String, Object> bean2Map = BeanUtil.bean2Map(o);
             for(String key : bean2Map.keySet())
             {
                 if (Assert.isEmpty(bean2Map.get(key))) {
-                    continue;// 跳过空值字段
+                    continue;
+                    // 跳过空值字段
                 }
-                // 使用下划线形式的字段名查询
-                //VariableNameUtils.humpToLine(key) 是一个工具方法，用于将驼峰命名法的属性名转换为下划线分隔的数据库字段名。
-                // 例如，如果 key 是 "userName"，则转换后变为 "user_name"。
                 wrapper.eq(VariableNameUtils.humpToLine(key), bean2Map.get(key));
             }
         }
@@ -67,12 +64,14 @@ public class PatientHistoryService extends BaseService<PatientHistory> {
     @Override
     public PatientHistory save(PatientHistory o)
     {
+        // 如果 ID 为空，则插入新的对象
         if(Assert.isEmpty(o.getId()))
         {
-            System.out.println("插入了");
+            System.out.println("插入病历");
             patientHistoryDao.insert(o);
         }else {
-            System.out.println("跟新了");
+            // 如果 ID 不为空，则更新已有对象
+            System.out.println("跟新病历");
             patientHistoryDao.updateById(o);
         }
 

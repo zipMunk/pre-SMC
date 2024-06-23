@@ -74,7 +74,6 @@ public class MedicineService extends BaseService<Medicine> {
 
     /**
      * 根据 ID 获取一个 Medicine 对象
-     *
      * @param id 对象的主键 ID
      * @return 获取到的 Medicine 对象
      */

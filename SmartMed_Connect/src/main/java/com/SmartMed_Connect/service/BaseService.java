@@ -61,6 +61,9 @@ public abstract class BaseService<T> implements IService<T> {
     @Autowired
     protected PageviewDao pageviewDao;
 
+    /**
+     * 用户历史病历 DAO 对象，用于访问用户病历相关数据的持久化操作。
+     */
     @Autowired
     protected PatientHistoryDao patientHistoryDao;
 

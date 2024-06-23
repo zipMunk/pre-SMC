@@ -91,6 +91,10 @@ public class PatientHistory {
      */
     private String diagnosticResult;
 
+    /**
+     * 整合病历的时候需要规范病历格式
+     * @return 单条病历的格式化字符串
+     */
     @Override
     public String toString() {
         return "病史{      " +
