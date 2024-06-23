@@ -4,49 +4,22 @@ package com.SmartMed_Connect.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
-import kong.unirest.UnirestException;
+import kong.unirest.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import kong.unirest.GetRequest;
-import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
 public class MapUtil {
+
 
     private static String amapKey="db5dc572b1fa4f88af5820889d0c2cbb";
 
 
-    public static JSONObject sendGetRequest(String url, Map<String,Object> params){
-        HttpResponse jsonResponse = null;
-        try {
-            jsonResponse = Unirest.get(url).queryString(params)
-                    .header("content-type", "application/json")
-                    .asJson();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        return JSONObject.parseObject(jsonResponse.getBody().toString());
-
-    }
-
-    public static JSONObject sendPostRequest(String url, Map<String,Object> params){
-        HttpResponse jsonResponse = null;
-        try {
-            jsonResponse = Unirest.post(url)
-                    .fields(params)
-                    .asString();
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
-        return JSONObject.parseObject(jsonResponse.getBody().toString());
-
-    }
     public static List<String> findHospitalPOI(String region){
         String url = "https://restapi.amap.com/v5/place/text";
         Map params = new HashMap<String,Object>();
@@ -59,7 +32,7 @@ public class MapUtil {
         //090600 医疗保健相关
         params.put("types","090100");
         params.put("region",region);
-        JSONObject result = sendGetRequest(url,params);
+        JSONObject result = ClientUtil.sendGetRequest(url,params);
         Integer status = Integer.parseInt(result.getString("status"));
         String info = result.getString("info");
 
@@ -91,7 +64,7 @@ public class MapUtil {
         }
         params.put("key",amapKey);
 
-        JSONObject result = sendGetRequest(url,params);
+        JSONObject result = ClientUtil.sendGetRequest(url,params);
         Integer status = Integer.parseInt(result.getString("status"));
         String info = result.getString("info");
         if(status==0){
@@ -103,6 +76,7 @@ public class MapUtil {
         List<String> addresses = findHospitalPOI(city);
 
         StringBuilder sb = new StringBuilder(province);
+        sb.append("【根据您所在位置：");
         sb.append(city);
         sb.append("区域内的综合医院：<br>");
         if(addresses==null){
@@ -111,10 +85,7 @@ public class MapUtil {
         for(String address:addresses){
             sb.append(address + "<br>");
         }
+        sb.append("】");
         return sb.toString();
     }
-
-
-
-
 }

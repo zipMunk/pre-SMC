@@ -74,7 +74,8 @@ public class ApiService {
                     System.out.println("触发问诊模式");
                     patientInfo= new PatientInfo();
                     savePatientInfo(queryMessage);
-                    return getNextQueryMessage();
+                    String response=getNextQueryMessage();
+                    return response;
                 }
                 //否则，使用通义千问的一般问答模式
                 else
@@ -95,6 +96,8 @@ public class ApiService {
                     isTriggering=false;//重置触发标志
                     queryStep=0;//重置问诊步骤
 
+
+
                     //查找病史
                     List<PatientHistory> PatientHistoryList = patientHistoryService.findByUserId(userController.loginUser.getId());
                     // 将病史列表中的元素转换成字符串并连接起来
@@ -103,21 +106,26 @@ public class ApiService {
                             .collect(Collectors.joining("。      "));
                     //打印查看病史列表
                     System.out.println(historyString);
-
+                    patientInfo.toString();
                     //整合病史和当前病情
-                    messages.add(createMessage(Role.USER, "病人的以往病史是："+historyString+"当前的情况是："+patientInfo.toString()+"请你结合病人的病史和当前症状给出相应的建议"));
+                    messages.add(createMessage(Role.USER,"我的的以往病史是："+historyString+
+                            "            " +
+                            "我的当前的病症是："+patientInfo.toString()+
+                            "            " +
+                            "请你针对我的的当前症状给出相应的建议，如果当前病症和我的病史相关那就需要考虑一下病史"));
                     GenerationParam param = createGenerationParam(messages);
                     GenerationResult result = callGenerationWithMessages(param);
                     messages.add(result.getOutput().getChoices().get(0).getMessage());
                     GenerationOutput output = result.getOutput();
+
 //                    printMessages();
-                    System.out.println(output.getChoices().get(0).getMessage().getContent());
+//                    System.out.println(output.getChoices().get(0).getMessage().getContent());
                     patientHistory=PatientInfoToPatientHistory(patientInfo,output.getChoices().get(0).getMessage().getContent());
                     //把当前的病症保存为病史
                     patientHistoryService.save(patientHistory);
 //
 
-                    return "结合病史和当前病人症状得到的诊断结果是：                   "+output.getChoices().get(0).getMessage().getContent();
+                    return "考虑到您的病史和当前症状得到的诊断结果是：                   "+output.getChoices().get(0).getMessage().getContent();
                 }
                 savePatientInfo(queryMessage);//保存上一次提问的用户回答
                 String response = getNextQueryMessage();//获得AI下一次的问题
@@ -138,19 +146,19 @@ public class ApiService {
         queryStep++;
         switch (queryStep) {
             case 1:
-                return "请提供您的个人基本信息，包括身高和体重。";
+                return "提供一下你最近的身高和体重信息";
             case 2:
-                return "您目前有哪些症状？请详细描述。";
+                return "你目前有哪些症状？能详细和我说一下";
             case 3:
-                return "请描述病情发作的相关细节，如发作时间、持续时间和发作频率。";
+                return "病情发作的细节你有留意吗？，比如发作时间、持续时间和发作频率。";
             case 4:
-                return "您的生活方式因素如何？包括饮食、运动、睡眠等方面。";
+                return "你的平时生活习惯怎样？比如饮食、运动、睡眠等方面。";
             case 5:
-                return "请描述您的病史，包括曾经患过的疾病、手术史等。";
+                return "请大致描述一下你的病史，包括曾经患过的疾病、手术史等。";
             case 6:
-                return "您是否对某些药物过敏？如果有，请提供过敏药物的信息。";
+                return "你是否对某些药物过敏？如果有，请说一下你过敏的药物信息";
             case 7:
-                return "您目前正在使用哪些药物？请提供正在使用的药物清单。";
+                return "你目前有那些正在使用的药物？请提供正在使用的药物清单。";
             default:
                 break;
         }

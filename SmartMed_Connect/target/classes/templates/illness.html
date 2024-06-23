@@ -44,7 +44,8 @@
                 <div th:if="${history ne null}" style="margin-top: 10px">
                     <span>搜索历史：</span>
                     <a th:each="his:${history}"
-                       th:href="${his.operateType eq 3}?@{findMedicines(nameValue=${his.searchValue})}:@{findIllness(kind=${his.kind eq '无'}?null:${his.kind},illnessName=${his.nameValue eq '无'}?null:${his.nameValue})}"><span
+                       th:href="${his.operateType eq 3}?@{findMedicines(nameValue=${his.searchValue})}:@{findIllness(kind=${his.kind eq '无'}?null:${his.kind},
+                       illnessName=${his.nameValue eq '无'}?null:${his.nameValue})}"><span
                             th:text="${his.operateType eq 3}?(${his.searchValue} + '(药)'):${his.searchValue}"></span>&nbsp;&nbsp;&nbsp;</a>
                 </div>
             </div>

@@ -49,6 +49,27 @@ public class SystemController extends BaseController<User> {
         // 返回 "doctor" 字符串，表示将会渲染名为 "smart_doctor" 的视图
         return "smart-doctor";
     }
+
+    /**
+     * 病历
+     */
+    @GetMapping("/patient-history")
+    public String patientHistory(Map<String, Object> map, Integer userId) {
+        // 如果未登录用户访问所有反馈页面，则重定向到首页
+        if (Assert.isEmpty(loginUser)) {
+            return "redirect:/index.html";
+        }
+        // 获取所有病历
+//        List<PatientHistory> patientHistoryList = patientHistoryService.findByUserIdAll(userId);
+        List<PatientHistory> patientHistoryList=patientHistoryService.findByUserId(loginUser.getId());
+        // 将反馈列表放入 map 中，传递给视图
+        map.put("patientHistoryList", patientHistoryList);
+        System.out.println(map);
+        // System.out.println(patientHistoryList);
+        // 返回 "patient-history" 字符串，表示将会渲染名为 "patient-history" 的视图
+        return "patient-history";
+    }
+
     /**
      * 退出登录
      */
@@ -74,6 +95,7 @@ public class SystemController extends BaseController<User> {
         // 将反馈列表放入 map 中，传递给视图
         map.put("feedbackList", feedbackList);
         // 返回 "all-feedback" 字符串，表示将会渲染名为 "all-feedback" 的视图
+        System.out.println(map);
         return "all-feedback";
     }
 
