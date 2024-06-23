@@ -24,7 +24,7 @@ import java.util.List;
  */
 //@Controller
 public class BaseController<T> {
-//    // 自动注入常用服务对象，提供业务逻辑处理
+    //    // 自动注入常用服务对象，提供业务逻辑处理
 //    @Autowired
 //    protected ApiService apiService;
     @Autowired

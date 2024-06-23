@@ -60,7 +60,8 @@ public class SystemController extends BaseController<User> {
             return "redirect:/index.html";
         }
         // 获取所有病历
-        List<PatientHistory> patientHistoryList = patientHistoryService.findByUserIdAll(userId);
+//        List<PatientHistory> patientHistoryList = patientHistoryService.findByUserIdAll(userId);
+        List<PatientHistory> patientHistoryList=patientHistoryService.findByUserId(loginUser.getId());
         // 将反馈列表放入 map 中，传递给视图
         map.put("patientHistoryList", patientHistoryList);
         System.out.println(map);

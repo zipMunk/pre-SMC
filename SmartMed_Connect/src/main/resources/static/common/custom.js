@@ -564,6 +564,43 @@ function smart_send() {
 }
 
 /**
+ * ming发送消息
+ */
+function ming_send() {
+    let message = $('#message').val();
+    if (!message) {
+        return;
+    }
+    $('#messages').append("<div class='msg-received msg-sent' style=\"margin-right: 20px\"><div class='msg-content'><p>现在</p><p class='msg'>" + message + "</p></div></div>");
+    messageInit();
+    $('#message').val('');
+    $.ajax({
+        type: "POST",
+        url: "message/ming_query",
+        data: {
+            content: message,
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data['code'] === 'SUCCESS') {
+                message = data['message'];
+                $('#messages').append("<div class=\"msg-received\">\n" +
+                    "                   <div class=\"msg-image\">\n" +
+                    "                      <img src=\"assets/images/team/doctor.png\" alt=\"image\">\n" +
+                    "                   </div>\n" +
+                    "                   <div class=\"msg-content\">\n" +
+                    "                      <p>现在</p>\n" +
+                    "                      <p class=\"msg\">\n" + message +
+                    "                      </p>\n" +
+                    "                   </div>\n" +
+                    "                  </div>");
+                messageInit();
+            }
+        }
+    });
+
+}
+/**
  * 搜索病
  */
 function searchGroup(kind) {
