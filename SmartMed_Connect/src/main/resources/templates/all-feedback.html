@@ -45,7 +45,8 @@
                                 <div class="dashboard-list-box with-icons">
                                     <div class="dashboard-title">
                                         <h4 class="mb-0">反馈信息</h4>
-                                        <p class="mb-0">集思广益，广纳贤才。共收集 [[${feedbackList.size()}]] 条反馈信息。</p>
+                                        <p class="mb-0">集思广益，广纳贤才。共收集 [[${feedbackList.size()}]]
+                                            条反馈信息。</p>
                                     </div>
                                     <div class="table-responsive table-desi">
                                         <table class="basic-table table table-hover">
@@ -61,19 +62,20 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-
+                                            <tr th:each="feedback:${feedbackList}">
+                                                <td th:text="${feedback.id}"></td>
+                                                <td th:text="${feedback.name}"></td>
+                                                <td th:text="${feedback.email}"></td>
+                                                <td th:text="${feedback.title}"></td>
+                                                <td th:text="${feedback.content}"></td>
+                                                <td th:text="${#dates.format(feedback.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                                <td>
+                                                    <a th:onclick="deleteFeedback([[${feedback.id}]])" href="#"><span
+                                                            class="label text-success">删除</span></a>
+                                                </td>
                                             </tr>
                                             </tbody>
-                                        </table>                               <tr th:each="feedback:${feedbackList}">
-                                        <td th:text="${feedback.id}"></td>
-                                        <td th:text="${feedback.name}"></td>
-                                        <td th:text="${feedback.email}"></td>
-                                        <td th:text="${feedback.title}"></td>
-                                        <td th:text="${feedback.content}"></td>
-                                        <td th:text="${#dates.format(feedback.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                        <td>
-                                            <a th:onclick="deleteFeedback([[${feedback.id}]])" href="#"><span class="label text-success">删除</span></a>
-                                        </td>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

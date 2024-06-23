@@ -4,7 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--    设置了文档的字符编码和标题。-->
+    <!-- 设置了文档的字符编码和标题 -->
+    <style>
+        .footer {
+            position: relative;
+            z-index: 1;
+            height: 100px; /* Adjust based on the height of your footer */
+            background-color: #333; /* Sample background color */
+            clear: both;
+        }
+    </style>
 </head>
 <body>
 
@@ -36,7 +45,8 @@
                     <div th:if="${session.loginUser != null}" class="register-login">
                         <div class="navbar-collapse1">
                             <ul class="nav navbar-nav">
-                                <li><a href="smart_doctor" style="width: 170px">智慧问诊：疾病解析与非处方药推荐</a></li>
+                                <li><a href="smart_doctor" style="width: 120px">智慧问诊平台</a></li>
+                                <li><a href="ming_doctor" style="width: 100px" >智能医生Ming</a></li>
                             </ul>
                         </div>
                     </div>
