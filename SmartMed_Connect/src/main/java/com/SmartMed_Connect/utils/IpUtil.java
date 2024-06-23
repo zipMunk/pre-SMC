@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
+
 public class IpUtil {
 
     private static final String LOCAL_IP = "127.0.0.1";
