@@ -1,8 +1,10 @@
 package com.SmartMed_Connect.service;
 
+import com.SmartMed_Connect.controller.GeographyController;
 import com.SmartMed_Connect.controller.UserController;
 import com.SmartMed_Connect.entity.PatientHistory;
 import com.SmartMed_Connect.entity.User;
+import com.SmartMed_Connect.utils.MapUtil;
 import com.alibaba.dashscope.aigc.generation.Generation;
 import com.alibaba.dashscope.aigc.generation.GenerationOutput;
 import com.alibaba.dashscope.aigc.generation.GenerationParam;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +40,9 @@ public class ApiService {
     @Autowired
     protected UserService userService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     //病史实体类
     private PatientHistory patientHistory = new PatientHistory();
 
@@ -52,6 +58,9 @@ public class ApiService {
     private PatientInfo patientInfo = new PatientInfo();
     //是否正在触发智能问诊模式
     private boolean isTriggering=false;
+
+    @Autowired
+    private GeographyController geographyController;
 
 
     //处理用户与 Qwen 对话的函数
@@ -123,9 +132,12 @@ public class ApiService {
                     patientHistory=PatientInfoToPatientHistory(patientInfo,output.getChoices().get(0).getMessage().getContent());
                     //把当前的病症保存为病史
                     patientHistoryService.save(patientHistory);
-//
 
-                    return "考虑到您的病史和当前症状得到的诊断结果是：                   "+output.getChoices().get(0).getMessage().getContent();
+                    // 调用 MapUtil 获取最近医院信息
+                    String userIP = request.getRemoteAddr();
+                    String hospitalInfo = MapUtil.getAddressByIP(userIP);
+
+                    return "考虑到您的病史和当前症状得到的诊断结果是：                   "+output.getChoices().get(0).getMessage().getContent() + "\n\n" + hospitalInfo;
                 }
                 savePatientInfo(queryMessage);//保存上一次提问的用户回答
                 String response = getNextQueryMessage();//获得AI下一次的问题

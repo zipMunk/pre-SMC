@@ -76,7 +76,7 @@ public class MapUtil {
         List<String> addresses = findHospitalPOI(city);
 
         StringBuilder sb = new StringBuilder(province);
-        sb.append("【根据您所在位置：");
+        sb.append("<br>【根据您所在位置：");
         sb.append(city);
         sb.append("区域内的综合医院：<br>");
         if(addresses==null){
