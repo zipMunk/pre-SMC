@@ -27,18 +27,25 @@ public class BaseController<T> {
 //    protected ApiService apiService;
     @Autowired
     protected UserService userService;
+
     @Autowired
     protected IllnessKindService illnessKindService;
+
     @Autowired
     protected IllnessMedicineService illnessMedicineService;
+
     @Autowired
     protected IllnessService illnessService;
+
     @Autowired
     protected MedicalNewsService medicalNewsService;
+
     @Autowired
     protected MedicineService medicineService;
+
     @Autowired
     protected HistoryService historyService;
+
     @Autowired
     protected FeedbackService feedbackService;
 
@@ -68,7 +75,7 @@ public class BaseController<T> {
      * @return 响应结果
      */
     @ResponseBody//将控制器方法的返回值直接写入 HTTP 响应体中，而不是将其解析为一个视图名称。
-    @PostMapping("save")
+    @PostMapping("save")//表示这个方法是用来处理 HTTP POST 请求的。POST 请求通常用于提交数据，比如表单数据或 JSON 数据，进行创建或更新操作。
     public RespResult save(T obj) {
         // 检查对象是否为空
         if (Assert.isEmpty(obj)) {

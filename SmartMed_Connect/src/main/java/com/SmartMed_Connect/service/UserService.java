@@ -27,6 +27,7 @@ public class UserService extends BaseService<User> {
      */
     @Override
     public List<User> query(User o) {
+        //创建查询条件的包装器（QueryWrapper），用于构建数据库查询条件
         QueryWrapper<User> wrapper = new QueryWrapper();
         if (Assert.notEmpty(o)) {
             // 将对象转换为 Map 形式
@@ -36,7 +37,7 @@ public class UserService extends BaseService<User> {
                     continue;// 跳过空值字段
                 }
                 // 使用下划线形式的字段名查询
-                //VariableNameUtils.humpToLine(key) 是一个工具方法，用于将驼峰命名法的属性名转换为下划线分隔的数据库字段名。
+                //VariableNameUtils.humpToLine(key)是我们的工具类方法，用于将驼峰命名法的属性名转换为下划线分隔的数据库字段名。
                 // 例如，如果 key 是 "userName"，则转换后变为 "user_name"。
                 wrapper.eq(VariableNameUtils.humpToLine(key), bean2Map.get(key));
             }

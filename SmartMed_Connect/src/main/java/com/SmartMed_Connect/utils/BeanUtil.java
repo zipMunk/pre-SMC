@@ -58,9 +58,7 @@ public class BeanUtil {
      */
     public static <T> T map2Bean(Map<String, Object> map, Class<T> clazz)
             throws InstantiationException, IllegalAccessException {
-        // 如果 map 或 clazz 为 null，则直接返回 null
         if ((null == map) || (null == clazz)) return null;
-        // 实例化目标类的对象
         T bean = clazz.newInstance();
         // 调用下面的 map2Bean 方法将 map 中的键值对映射到 bean 的属性上
         map2Bean(map, bean);
@@ -70,7 +68,6 @@ public class BeanUtil {
 
 
     public static <T> void map2Bean(Map<String, Object> map, T bean) {
-        // 如果 map 或 bean 为 null，则直接返回，不进行映射操作
         if ((null == map) || (null == bean)) return;
         // 使用 BeanMap 创建目标对象的映射视图
         BeanMap beanMap = BeanMap.create(bean);
@@ -85,7 +82,6 @@ public class BeanUtil {
      * @return 包含 bean 属性名和属性值的 Map 对象，如果 bean 为 null，则返回 null
      */
     public static Map<String, Object> bean2Map(Object bean) {
-        // 如果 bean 为 null，则直接返回 null
         if (null == bean) return null;
         // 调用 copy 方法将 BeanMap 转换为普通的 Map<String, Object>
         return copy(BeanMap.create(bean));
@@ -216,9 +212,9 @@ public class BeanUtil {
         // 如果 Bean 对象是 Integer 类型
         if (clazz == int.class || clazz == Integer.class) {
             return "" + value;
-        } else if (clazz == String.class) {// 如果 Bean 对象是 String 类型
+        } else if (clazz == String.class) {
             return (String) value;
-        } else if (clazz == long.class || clazz == Long.class) {// 如果 Bean 对象是 Long 类型
+        } else if (clazz == long.class || clazz == Long.class) {
             return "" + value;
         } else {// 如果 Bean 对象是其他类型，使用 JSON 序列化将其转换为 JSON 字符串
             return JSON.toJSONString(value);
@@ -235,18 +231,18 @@ public class BeanUtil {
      * @return 转换后的 Bean 对象，如果字符串或 Class 对象为 null 或字符串为空，则返回 null
      */
     public static <T> T stringToBean(String str, Class<T> clazz) {
-        // 如果字符串为 null 或空，或者 Class 对象为 null，则返回 null
         if (str == null || str.length() <= 0 || clazz == null) {
             return null;
         }
         // 如果目标类型是 Integer 类型
         if (clazz == int.class || clazz == Integer.class) {
             return (T) Integer.valueOf(str);
-        } else if (clazz == String.class) {// 如果目标类型是 String 类型
+        } else if (clazz == String.class) {
             return (T) str;
-        } else if (clazz == long.class || clazz == Long.class) {// 如果目标类型是 Long 类型
+        } else if (clazz == long.class || clazz == Long.class) {
             return (T) Long.valueOf(str);
-        } else {// 如果目标类型是其他类型，使用 JSON 反序列化将字符串转换为指定类型的对象
+        } else {
+            // 如果目标类型是其他类型，使用 JSON 反序列化将字符串转换为指定类型的对象
             return JSON.toJavaObject(JSON.parseObject(str), clazz);
         }
     }

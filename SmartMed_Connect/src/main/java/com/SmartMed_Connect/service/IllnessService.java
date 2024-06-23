@@ -65,7 +65,9 @@ public class IllnessService extends BaseService<Illness> {
         return illnessDao.deleteById(id);
     }
 
-    // 查找疾病列表的方法，根据疾病类别、名称和分页参数进行查询
+    /**
+     *  查找疾病列表的方法，根据疾病类别、名称和分页参数进行查询
+      */
     public Map<String, Object> findIllness(Integer kind, String illnessName, Integer page) {
         // 创建一个初始容量为 4 的 HashMap，用于存储最终结果
         Map<String, Object> map = new HashMap<>(4);
@@ -82,7 +84,6 @@ public class IllnessService extends BaseService<Illness> {
                     .or()
                     .like("special_symptom", illnessName);// 特殊症状包含 illnessName
         }
-
         // 如果 kind 非空，则添加疾病种类的查询条件
         if (kind != null) {
             if (Assert.notEmpty(illnessName)) {
@@ -97,11 +98,10 @@ public class IllnessService extends BaseService<Illness> {
         } else {
             illnessQueryWrapper.orderByDesc("create_time");
             illnessQueryWrapper.last("limit " + (page - 1) * 9 + "," + page * 9);
-
         }
         // 获取符合条件的疾病记录的总数
         int size = illnessDao.selectMaps(illnessQueryWrapper).size();
-        // 查询符合条件的疾病记录
+        //对查询出来的疾病列表进行处理
         List<Map<String, Object>> list = illnessDao.selectMaps(illnessQueryWrapper);
         list.forEach(l -> {
             Integer id = MapUtil.getInt(l, "id");// 获取疾病 ID
