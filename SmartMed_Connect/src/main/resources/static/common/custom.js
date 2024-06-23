@@ -558,6 +558,7 @@ function smart_send() {
                 messageInit();
             }
         }
+
     });
 
 }
@@ -567,12 +568,12 @@ function smart_send() {
  */
 function searchGroup(kind) {
     let content = $("#search").val().trim();
-    if (content == ""){
+    if (content == "") {
         xtip.msg("请输入查询内容");
         return;
     }
     let href = window.location.href;
-    href = href.split("/")[0] + "/findIllness?illnessName="+content+"&kind="+kind;
+    href = href.split("/")[0] + "/findIllness?illnessName=" + content + "&kind=" + kind;
     reloadToGO(href);
 }
 
@@ -581,12 +582,12 @@ function searchGroup(kind) {
  */
 function searchGroupByName() {
     let content = $("#search").val().trim();
-    if (content == ""){
+    if (content == "") {
         xtip.msg("请输入查询内容");
         return;
     }
     let href = window.location.href;
-    href = href.split("/")[0] + "/findIllness?illnessName="+content;
+    href = href.split("/")[0] + "/findIllness?illnessName=" + content;
     reloadToGO(href);
 }
 
@@ -595,26 +596,27 @@ function searchGroupByName() {
  */
 function searchGlobalSelect() {
     let content = $("#cf-search-form").val().trim();
-    if (content == ""){
+    if (content == "") {
         xtip.msg("请输入查询内容");
         return;
     }
     let href = window.location.href;
     alert(href);
-    href = href.split("/")[0] + "/findIllness?illnessName="+content;
+    href = href.split("/")[0] + "/findIllness?illnessName=" + content;
     reloadToGO(href);
 }
+
 /**
  * 搜索药
  */
 function searchMedicine() {
     let content = $("#search-medicine").val().trim();
-    if (content == ""){
+    if (content == "") {
         xtip.msg("请输入查询内容");
         return;
     }
     let href = window.location.href;
-    href = href.split("/")[0] + "/findMedicines?nameValue="+content;
+    href = href.split("/")[0] + "/findMedicines?nameValue=" + content;
     reloadToGO(href);
 }
 

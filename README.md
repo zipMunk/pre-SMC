@@ -94,3 +94,9 @@
 
 1. 制作了新的对话页面smart_doctor.html，用来存放微调大模型、或者结合对话和百科信息。修改了Base Controller，Message Controler和System Controller，用来存放新的页面。
 2. SmartApiService用来实现这个页面中的功能，现在智慧问诊界面对话可以输出最近的医院位置（待完善）。
+
+
+
+2024.6.23 by mpz
+
+修改了部分前端页面，更改了输出医院位置时候不能换行的问题。

@@ -104,12 +104,12 @@ public class MapUtil {
 
         StringBuilder sb = new StringBuilder(province);
         sb.append(city);
-        sb.append("区域内的综合医院：");
+        sb.append("区域内的综合医院：<br>");
         if(addresses==null){
             return sb.toString();
         }
         for(String address:addresses){
-            sb.append(address);
+            sb.append(address + "<br>");
         }
         return sb.toString();
     }
