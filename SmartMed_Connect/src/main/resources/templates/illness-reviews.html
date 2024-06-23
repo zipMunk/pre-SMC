@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
@@ -48,6 +48,16 @@
                                                                   th:text="${illness.illnessName}">疾病的名字</a></h3>
                                         <p class="detail" th:text="${illness.includeReason}"></p>
                                     </div>
+                                    <div th:if="${session.loginUser == null}" >
+                                        <div style="text-align: center; margin-top: 5px; margin-bottom:-5px; font-size: 21px;" >
+                                            <a href="smart_doctor">登陆后，了解更多</a>
+                                        </div>
+                                    </div>
+                                    <div th:if="${session.loginUser != null}" >
+                                        <div style="text-align: center; margin-top: 5px; margin-bottom:-5px; font-size: 21px;">
+                                            <a href="smart_doctor">了解更多</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +100,7 @@
                                             10:46 am</p>
                                         <span class="num-rating white"
                                               th:text="${me.medicineType eq 0}?'西药':(${me.medicineType eq 1}?'中药':'中性药')">4.6/5</span>
-                                        <span class="comment-title"><i>"请注意用法用量"</i></span>
+                                        <span class="comment-title"><i>"是药三分毒，切忌不要乱吃药！"</i></span>
                                         <p class="comment mt-2" th:text="${me.medicineEffect}">
                                             Take in the iconic skyline and visit the neighbourhood hangouts that
                                             you've
@@ -109,7 +119,7 @@
                                         <h5 class="m-0" >Helena</h5>
                                         <p class="comment-date mb-2" >April 25, 2019 at 10:46 am</p>
                                         <span class="num-rating white" >4.6/5</span>
-                                        <span class="comment-title"><i>"请注意用法用量"</i></span>
+                                        <span class="comment-title"><i>"是药三分毒，切忌不要乱吃药！"</i></span>
                                         <p class="comment mt-2" >
                                             Take in the iconic skyline and visit the neighbourhood hangouts that you've
                                             only ever seen on TV. Take in the iconic skyline and visit
