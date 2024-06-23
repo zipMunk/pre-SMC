@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-//病史实体类
+/**
+ * 表示病人病史的实体类。
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,31 +26,70 @@ public class PatientHistory {
     @TableId(type=IdType.AUTO)
     private Integer id;
 
-    private Integer UserId;//用户Id
+    /**
+     * 表示与此病史关联的用户的ID。
+     */
+    private Integer UserId;
 
-    private String firstQuery;//病人第一次询问
+    /**
+     * 表示病人第一次询问的问题。
+     */
+    private String firstQuery;
 
-    private Integer userAge;//用户年龄
+    /**
+     * 表示用户的年龄。
+     */
+    private Integer userAge;
 
-    private String userSex;//用户性别
+    /**
+     * 表示用户的性别。
+     */
+    private String userSex;
 
-    private String heightAndWeight;//身高、体重
+    /**
+     * 表示用户的身高和体重。
+     */
+    private String heightAndWeight;
 
-    private String symptoms;//症状
+    /**
+     * 表示病人所经历的症状。
+     */
+    private String symptoms;
 
-    private String episodeDetails;//病情发作相关细节，如发作时间，持续时间，发作频率
+    /**
+     * 相关发作的详细信息，如发作时间、持续时间、发作频率等。
+     */
+    private String episodeDetails;
 
-    private String lifestyleFactors;//表示生活方式因素，包括饮食、运动、睡眠等
+    /**
+     * 表示生活方式因素，包括饮食、运动和睡眠等。
+     */
+    private String lifestyleFactors;
 
-    private String medicalHistory;//病史
+    /**
+     * 表示用户的过往病史。
+     */
+    private String medicalHistory;
 
-    private String allergicDrugs;//过敏药物
+    /**
+     * 表示病人对哪些药物过敏。
+     */
+    private String allergicDrugs;
 
-    private String usingDrugs;//正在使用的药物
+    /**
+     * 表示病人目前正在使用的药物。
+     */
+    private String usingDrugs;
 
-    private Date createTime;//记录时间
+    /**
+     * 表示记录创建的时间。
+     */
+    private Date createTime;
 
-    private String diagnosticResult;//诊断结果
+    /**
+     * 表示病人的诊断结果。
+     */
+    private String diagnosticResult;
 
     @Override
     public String toString() {

@@ -10,10 +10,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
-//使用ORM的优点
-//提高开发效率：
-//开发者无需编写大量的 SQL 语句。
-//自动生成数据库操作代码，减少重复劳动。
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

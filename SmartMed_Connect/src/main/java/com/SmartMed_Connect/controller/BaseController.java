@@ -27,18 +27,25 @@ public class BaseController<T> {
 //    protected ApiService apiService;
     @Autowired
     protected UserService userService;
+
     @Autowired
     protected IllnessKindService illnessKindService;
+
     @Autowired
     protected IllnessMedicineService illnessMedicineService;
+
     @Autowired
     protected IllnessService illnessService;
+
     @Autowired
     protected MedicalNewsService medicalNewsService;
+
     @Autowired
     protected MedicineService medicineService;
+
     @Autowired
     protected HistoryService historyService;
+
     @Autowired
     protected FeedbackService feedbackService;
 

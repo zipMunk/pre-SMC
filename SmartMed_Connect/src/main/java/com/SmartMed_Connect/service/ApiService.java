@@ -1,5 +1,3 @@
-
-
 package com.SmartMed_Connect.service;
 
 import com.SmartMed_Connect.controller.UserController;
@@ -17,10 +15,10 @@ import com.alibaba.dashscope.exception.ApiException;
 import com.alibaba.dashscope.exception.InputRequiredException;
 import com.alibaba.dashscope.exception.NoApiKeyException;
 import com.alibaba.dashscope.utils.Constants;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ApiService {
+
 
     @Autowired
     protected PatientHistoryService patientHistoryService;
@@ -38,38 +37,47 @@ public class ApiService {
     @Autowired
     protected UserService userService;
 
+    //病史实体类
     private PatientHistory patientHistory = new PatientHistory();
 
     static {
         // 设置 API key
         com.alibaba.dashscope.utils.Constants.apiKey = "sk-d70a6efd593a4d72b91a1cecd4408411";
     }
+    // 消息列表
     private final List<Message> messages = new ArrayList<>();
+    //智能问诊模式到了第几步
     private int queryStep = 0;
+    //用于临时存储智能问诊模式得到的信息
     private PatientInfo patientInfo = new PatientInfo();
+    //是否正在触发智能问诊模式
     private boolean isTriggering=false;
 
 
+    //处理用户与 Qwen 对话的函数
     public String query(String queryMessage) {
         try {
+            // 初始消息为空时，添加系统消息
             if(messages.isEmpty())
             {
                 messages.add(createMessage(Role.SYSTEM, "你是一名智能医生，请结合上下文，回答病人的问题，不许回答其他问题。"));
 //                System.out.println("用户Id"+userController.loginUser.getId());
 //                patientHistoryService.findByUserId(userController.loginUser.getId());
             }
-            if(!isTriggering)//如果当前不在问诊模式
+            //如果当前不在问诊模式
+            if(!isTriggering)
             {
-                isTriggering=isMedicalQuery(queryMessage);//判断用户的问题是否触发问诊模式
-                if(isTriggering)//如果用户的问题会触发问诊模式，调用触发问诊模式第一步询问
+                isTriggering=isMedicalQuery(queryMessage); //判断用户的问题是否触发问诊模式
+                //如果用户的问题会触发问诊模式，调用触发问诊模式第一步询问
+                if(isTriggering)
                 {
                     System.out.println("触发问诊模式");
                     patientInfo= new PatientInfo();
                     savePatientInfo(queryMessage);
-                    String response = getNextQueryMessage();
-                    return response;
+                    return getNextQueryMessage();
                 }
-                else//否则，使用通义千问的一般问答模式
+                //否则，使用通义千问的一般问答模式
+                else
                 {
                     messages.add(createMessage(Role.USER, queryMessage));
                     GenerationParam param = createGenerationParam(messages);
@@ -84,19 +92,19 @@ public class ApiService {
                 if(queryStep==7)
                 {
                     savePatientInfo(queryMessage);//保存用户最后一次回答
-                    isTriggering=false;
-                    queryStep=0;
-
+                    isTriggering=false;//重置触发标志
+                    queryStep=0;//重置问诊步骤
 
                     //查找病史
                     List<PatientHistory> PatientHistoryList = patientHistoryService.findByUserId(userController.loginUser.getId());
-                    // 将列表中的元素转换成字符串并连接起来
+                    // 将病史列表中的元素转换成字符串并连接起来
                     String historyString = PatientHistoryList.stream()
                             .map(PatientHistory::toString)
                             .collect(Collectors.joining("。      "));
+                    //打印查看病史列表
                     System.out.println(historyString);
 
-
+                    //整合病史和当前病情
                     messages.add(createMessage(Role.USER, "病人的以往病史是："+historyString+"当前的情况是："+patientInfo.toString()+"请你结合病人的病史和当前症状给出相应的建议"));
                     GenerationParam param = createGenerationParam(messages);
                     GenerationResult result = callGenerationWithMessages(param);
