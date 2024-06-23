@@ -6,6 +6,7 @@ import com.SmartMed_Connect.entity.User;
 import com.SmartMed_Connect.service.*;
 import com.SmartMed_Connect.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ import java.util.List;
  *
  * @param <T> 泛型类型，用于支持不同的实体类型
  */
+//@Controller
 public class BaseController<T> {
 //    // 自动注入常用服务对象，提供业务逻辑处理
 //    @Autowired
@@ -48,6 +50,9 @@ public class BaseController<T> {
 
     @Autowired
     protected FeedbackService feedbackService;
+
+    @Autowired
+    protected PatientHistoryService patientHistoryService;
 
     // 自动注入通用的基础服务对象，处理泛型类型的实体对象
     @Autowired

@@ -100,3 +100,8 @@
 2024.6.23 by mpz
 
 修改了部分前端页面，更改了输出医院位置时候不能换行的问题。
+
+2024.6.24 by wzj
+
+1、新增加了连接ming的apiservice，地址可以在application.yml里编辑
+2、新增ChatMessage用来在数据库中存储聊天记录，以实现多轮对话
