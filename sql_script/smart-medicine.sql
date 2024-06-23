@@ -1,21 +1,38 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : root
+ Source Server         : localMySQL_root
  Source Server Type    : MySQL
- Source Server Version : 50744 (5.7.44)
+ Source Server Version : 80012
  Source Host           : localhost:3306
- Source Schema         : smart-medicine
+ Source Schema         : medicine
 
  Target Server Type    : MySQL
- Target Server Version : 50744 (5.7.44)
+ Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 23/06/2024 10:48:24
+ Date: 23/06/2024 19:16:08
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for chat_message
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_message`;
+CREATE TABLE `chat_message`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `role` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of chat_message
+-- ----------------------------
+INSERT INTO `chat_message` VALUES (1, 0, '0', '0');
 
 -- ----------------------------
 -- Table structure for feedback
@@ -30,12 +47,14 @@ CREATE TABLE `feedback`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
-INSERT INTO `feedback` VALUES (6, '路人甲', '31952874@qq.com', '测试一号', '测试这个系统有问题吗？', '2022-05-03 16:13:59', '2022-05-03 16:13:59');
+INSERT INTO `feedback` VALUES (6, '路人甲', '31952874@qq.com', '测试1号', '测试这个系统有问题吗？', '2024-05-03 16:13:59', '2024-06-23 16:43:11');
+INSERT INTO `feedback` VALUES (7, '匿名', '11111111@qq.com', '测试2号', '地图医院输出不换行，可读性差', '2024-06-23 16:42:23', '2024-06-23 16:42:23');
+INSERT INTO `feedback` VALUES (8, '李四', '22222222@qq.com', '测试3号', '侧边栏链接', '2024-06-23 16:43:08', '2024-06-23 16:43:24');
 
 -- ----------------------------
 -- Table structure for history
@@ -49,7 +68,7 @@ CREATE TABLE `history`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 162 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 164 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of history
@@ -90,6 +109,8 @@ INSERT INTO `history` VALUES (158, 4, '1,无', 1, '2022-07-14 19:32:56', '2022-0
 INSERT INTO `history` VALUES (159, 4, '17,无', 1, '2022-07-14 19:32:59', '2022-07-14 19:32:59');
 INSERT INTO `history` VALUES (160, 4, '湿疹', 2, '2024-06-22 17:50:57', '2024-06-22 17:50:57');
 INSERT INTO `history` VALUES (161, 4, '牙周炎', 2, '2024-06-23 10:25:24', '2024-06-23 10:25:24');
+INSERT INTO `history` VALUES (162, 4, '湿疹', 2, '2024-06-23 11:02:00', '2024-06-23 11:02:00');
+INSERT INTO `history` VALUES (163, 4, '病毒性感冒', 2, '2024-06-23 11:02:49', '2024-06-23 11:02:49');
 
 -- ----------------------------
 -- Table structure for illness
@@ -105,7 +126,7 @@ CREATE TABLE `illness`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of illness
@@ -132,7 +153,7 @@ CREATE TABLE `illness_kind`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of illness_kind
@@ -160,7 +181,7 @@ CREATE TABLE `illness_medicine`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of illness_medicine
@@ -200,7 +221,7 @@ CREATE TABLE `medicine`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of medicine
@@ -222,13 +243,13 @@ CREATE TABLE `pageview`  (
   `pageviews` int(1) NULL DEFAULT NULL COMMENT '浏览量',
   `illness_id` int(11) NULL DEFAULT NULL COMMENT '病的id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pageview
 -- ----------------------------
-INSERT INTO `pageview` VALUES (5, 5, 1);
-INSERT INTO `pageview` VALUES (6, 5, 13);
+INSERT INTO `pageview` VALUES (5, 6, 1);
+INSERT INTO `pageview` VALUES (6, 6, 13);
 INSERT INTO `pageview` VALUES (7, 2, 4);
 INSERT INTO `pageview` VALUES (8, 1, 2);
 INSERT INTO `pageview` VALUES (9, 1, 3);
@@ -259,7 +280,7 @@ CREATE TABLE `patient_history`  (
   `diagnostic_result` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '诊断结果',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `create_time`(`create_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of patient_history
@@ -291,7 +312,7 @@ CREATE TABLE `user`  (
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `create_time`(`create_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
