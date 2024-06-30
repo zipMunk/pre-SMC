@@ -64,13 +64,13 @@ public class MingAPIService {
         params.put("max_tokens",3072);
 
         Integer userId = userController.loginUser.getId();
-        String queryContent;
+        String queryContent = queryMessage;
 //        List<MessageWrapper> messages;
         if(messageCacheList.isEmpty()){
             fetchUserChatHistory(userId);
-            queryContent = createQueryContent(userId,queryMessage);
-        }else{
-            queryContent = queryMessage;
+            if(messageCacheList.isEmpty()){
+                queryContent = createQueryContent(userId,queryMessage);
+            }
         }
 
 
