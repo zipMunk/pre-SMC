@@ -12,8 +12,8 @@ spring:
     time-zone: GMT+8
   # 邮件配置
   mail:
-    username: 3554417685@qq.com
-    password: vospaheitimpdbdb
+    username: xxxxxxxxxxxx@qq.com
+    password: xxxxxxxxxxxxxxxxxxx
     host: smtp.qq.com
     port: 465
     properties:
@@ -42,13 +42,13 @@ mybatis-plus:
 server:
   port: 8081
 # 阿里云通义千问配置
-ai-key: sk-d70a6efd593a4d72b91a1cecd4408411
+ai-key: xxxxxxxxxxxxxxxxxxxxxx
 
 # 阿里云对象存储配置
 oss:
   bucket-name: smart-medi01
   end-point: oss-cn-beijing.aliyuncs.com
-  access-key: LTAI5tDSZp19JZjwPGLj8qqy
-  access-secret: Nxsm9t4XwmeAEfdT3GbUWSYS7CpQAj
+  access-key: xxxxxxxxxxxxx
+  access-secret: xxxxxxxxxxxxxxxxxxxxxx
 ming:
   url: "http://127.0.0.1:6006/v1/chat/completions"
